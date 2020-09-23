@@ -4,6 +4,25 @@ Major project for Data and Application course during Monsoon'20 semester
 # Loading the database
 1. ```mysql -u username -p IPL < database.sql```
 
+# Tables
+
+<b>To Samay and teja: tables ka naam exactly yahi rakhna taaki panga na ho</b>
+
+- [x] Players <br>
+- [x] Teams <br>
+- [x] Batsman<br>
+- [x] Bowler<br>
+- [x] AllRounder<br>
+- [x] TeamManagement<br>
+- [ ] Seasons<br>
+- [ ] Matches<br>
+- [ ] Stadium<br>
+- [ ] TeamStandings<br>
+- [ ] Plays<br>
+- [ ] Scorecard<br>
+- [ ] TeamResults<br>
+- [ ] PlayerScorecard<br>
+
 # Useful MySQL commands
 Adding so I dont have to google these again and again :P
 1. ```SHOW CREATE TABLE Players;``` : Shows all the details of the table

@@ -123,6 +123,31 @@ LOCK TABLES `Players` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `TeamManagement`
+--
+
+DROP TABLE IF EXISTS `TeamManagement`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `TeamManagement` (
+  `TeamID` int DEFAULT NULL,
+  `Name` varchar(80) DEFAULT NULL,
+  `Role` varchar(80) DEFAULT NULL,
+  KEY `TeamID` (`TeamID`),
+  CONSTRAINT `TeamManagement_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `Teams` (`TeamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `TeamManagement`
+--
+
+LOCK TABLES `TeamManagement` WRITE;
+/*!40000 ALTER TABLE `TeamManagement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `TeamManagement` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Teams`
 --
 
@@ -157,4 +182,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-24  5:03:31
+-- Dump completed on 2020-09-24  5:07:22

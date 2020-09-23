@@ -16,6 +16,83 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `AllRounder`
+--
+
+DROP TABLE IF EXISTS `AllRounder`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `AllRounder` (
+  `PlayerID` int DEFAULT NULL,
+  `TotalWickets` int DEFAULT '0',
+  `CurrentWickets` int DEFAULT '0',
+  `TotalRuns` int DEFAULT '0',
+  `CurrentRuns` int DEFAULT '0',
+  KEY `PlayerID` (`PlayerID`),
+  CONSTRAINT `AllRounder_ibfk_1` FOREIGN KEY (`PlayerID`) REFERENCES `Players` (`PlayerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `AllRounder`
+--
+
+LOCK TABLES `AllRounder` WRITE;
+/*!40000 ALTER TABLE `AllRounder` DISABLE KEYS */;
+/*!40000 ALTER TABLE `AllRounder` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Batsman`
+--
+
+DROP TABLE IF EXISTS `Batsman`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Batsman` (
+  `TotalRuns` int DEFAULT '0',
+  `CurrentRuns` int DEFAULT '0',
+  `PlayerID` int DEFAULT NULL,
+  KEY `PlayerID` (`PlayerID`),
+  CONSTRAINT `Batsman_ibfk_1` FOREIGN KEY (`PlayerID`) REFERENCES `Players` (`PlayerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Batsman`
+--
+
+LOCK TABLES `Batsman` WRITE;
+/*!40000 ALTER TABLE `Batsman` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Batsman` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Bowler`
+--
+
+DROP TABLE IF EXISTS `Bowler`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Bowler` (
+  `PlayerID` int DEFAULT NULL,
+  `TotalWickets` int DEFAULT '0',
+  `CurrentWickets` int DEFAULT '0',
+  KEY `PlayerID` (`PlayerID`),
+  CONSTRAINT `Bowler_ibfk_1` FOREIGN KEY (`PlayerID`) REFERENCES `Players` (`PlayerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Bowler`
+--
+
+LOCK TABLES `Bowler` WRITE;
+/*!40000 ALTER TABLE `Bowler` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Bowler` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Players`
 --
 
@@ -80,4 +157,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-23  4:37:56
+-- Dump completed on 2020-09-24  5:03:31

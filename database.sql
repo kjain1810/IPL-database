@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
 --
 -- Host: localhost    Database: IPL
 -- ------------------------------------------------------
--- Server version	8.0.21-0ubuntu0.20.04.4
+-- Server version	8.0.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -93,6 +93,34 @@ LOCK TABLES `Bowler` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Matches`
+--
+
+DROP TABLE IF EXISTS `Matches`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Matches` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `WinnerID` int NOT NULL,
+  `Mom` int NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Winner_team` (`WinnerID`),
+  KEY `mom_constraint` (`Mom`),
+  CONSTRAINT `mom_constraint` FOREIGN KEY (`Mom`) REFERENCES `Players` (`PlayerID`),
+  CONSTRAINT `Winner_team` FOREIGN KEY (`WinnerID`) REFERENCES `Teams` (`TeamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Matches`
+--
+
+LOCK TABLES `Matches` WRITE;
+/*!40000 ALTER TABLE `Matches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Matches` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Players`
 --
 
@@ -120,6 +148,62 @@ CREATE TABLE `Players` (
 LOCK TABLES `Players` WRITE;
 /*!40000 ALTER TABLE `Players` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Players` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Plays`
+--
+
+DROP TABLE IF EXISTS `Plays`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Plays` (
+  `Team_ID` int DEFAULT NULL,
+  `Season_Year` int DEFAULT NULL,
+  `Match_ID` int DEFAULT NULL,
+  `Stadium` varchar(80) DEFAULT NULL,
+  KEY `team_id_foreign` (`Team_ID`),
+  KEY `match_id_foreign` (`Match_ID`),
+  CONSTRAINT `match_id_foreign` FOREIGN KEY (`Match_ID`) REFERENCES `Matches` (`ID`),
+  CONSTRAINT `team_id_foreign` FOREIGN KEY (`Team_ID`) REFERENCES `Teams` (`TeamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Plays`
+--
+
+LOCK TABLES `Plays` WRITE;
+/*!40000 ALTER TABLE `Plays` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Plays` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Stadium`
+--
+
+DROP TABLE IF EXISTS `Stadium`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Stadium` (
+  `Stadium_Name` varchar(150) NOT NULL,
+  `Stadium_City` varchar(40) NOT NULL,
+  `Max_capacity` int NOT NULL,
+  `Home_Team` int NOT NULL,
+  PRIMARY KEY (`Stadium_Name`,`Stadium_City`),
+  KEY `home_team_fk` (`Home_Team`),
+  CONSTRAINT `home_team_fk` FOREIGN KEY (`Home_Team`) REFERENCES `Teams` (`TeamID`),
+  CONSTRAINT `capacity_positive` CHECK ((`Max_capacity` > 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Stadium`
+--
+
+LOCK TABLES `Stadium` WRITE;
+/*!40000 ALTER TABLE `Stadium` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Stadium` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -182,4 +266,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-24  5:07:22
+-- Dump completed on 2020-09-24 13:33:00

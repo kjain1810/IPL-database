@@ -103,9 +103,15 @@ CREATE TABLE `Matches` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `WinnerID` int NOT NULL,
   `Mom` int NOT NULL,
+  `Feild_Umpire1` varchar(80) NOT NULL,
+  `Feild_Umpire2` varchar(80) NOT NULL,
+  `Stadium_name` varchar(150) NOT NULL,
+  `Stadium_city` varchar(40) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `Winner_team` (`WinnerID`),
   KEY `mom_constraint` (`Mom`),
+  KEY `Stadium_name` (`Stadium_name`,`Stadium_city`),
+  CONSTRAINT `matches_ibfk_1` FOREIGN KEY (`Stadium_name`, `Stadium_city`) REFERENCES `Stadium` (`Stadium_Name`, `Stadium_City`),
   CONSTRAINT `mom_constraint` FOREIGN KEY (`Mom`) REFERENCES `Players` (`PlayerID`),
   CONSTRAINT `Winner_team` FOREIGN KEY (`WinnerID`) REFERENCES `Teams` (`TeamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -176,6 +182,29 @@ CREATE TABLE `Plays` (
 LOCK TABLES `Plays` WRITE;
 /*!40000 ALTER TABLE `Plays` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Plays` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Seasons`
+--
+
+DROP TABLE IF EXISTS `Seasons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Seasons` (
+  `Year` int NOT NULL,
+  `Finished` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`Year`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Seasons`
+--
+
+LOCK TABLES `Seasons` WRITE;
+/*!40000 ALTER TABLE `Seasons` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Seasons` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -266,4 +295,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-24 13:33:00
+-- Dump completed on 2020-09-27 13:28:12

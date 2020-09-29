@@ -266,6 +266,33 @@ LOCK TABLES `TeamManagement` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `TeamStandings`
+--
+
+DROP TABLE IF EXISTS `TeamStandings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `TeamStandings` (
+  `TeamID` int DEFAULT NULL,
+  `SeasonYear` int DEFAULT NULL,
+  `Standing` int DEFAULT NULL,
+  KEY `TeamID` (`TeamID`),
+  KEY `SeasonYear` (`SeasonYear`),
+  CONSTRAINT `TeamStandings_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `Teams` (`TeamID`),
+  CONSTRAINT `TeamStandings_ibfk_2` FOREIGN KEY (`SeasonYear`) REFERENCES `Seasons` (`Year`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `TeamStandings`
+--
+
+LOCK TABLES `TeamStandings` WRITE;
+/*!40000 ALTER TABLE `TeamStandings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `TeamStandings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Teams`
 --
 
@@ -300,4 +327,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-29 23:05:12
+-- Dump completed on 2020-09-29 23:11:11

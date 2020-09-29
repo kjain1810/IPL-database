@@ -17,7 +17,7 @@ Major project for Data and Application course during Monsoon'20 semester
 - [ ] Seasons<br>
 - [ ] Matches<br>
 - [x] Stadium<br>
-- [ ] TeamStandings<br>
+- [x] TeamStandings<br>
 - [x] Plays<br>
 - [ ] Scorecard<br>
 - [ ] TeamResults<br>

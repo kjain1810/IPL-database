@@ -190,6 +190,31 @@ LOCK TABLES `Plays` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Scorecard`
+--
+
+DROP TABLE IF EXISTS `Scorecard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Scorecard` (
+  `MatchID` int DEFAULT NULL,
+  `Team1` int DEFAULT NULL,
+  `Team2` int DEFAULT NULL,
+  KEY `MatchID` (`MatchID`),
+  CONSTRAINT `Scorecard_ibfk_1` FOREIGN KEY (`MatchID`) REFERENCES `Matches` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Scorecard`
+--
+
+LOCK TABLES `Scorecard` WRITE;
+/*!40000 ALTER TABLE `Scorecard` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Scorecard` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Seasons`
 --
 
@@ -266,6 +291,33 @@ LOCK TABLES `TeamManagement` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `TeamResults`
+--
+
+DROP TABLE IF EXISTS `TeamResults`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `TeamResults` (
+  `SeasonYear` int DEFAULT NULL,
+  `TeamID` int DEFAULT NULL,
+  `Points` int DEFAULT NULL,
+  KEY `SeasonYear` (`SeasonYear`),
+  KEY `TeamID` (`TeamID`),
+  CONSTRAINT `TeamResults_ibfk_1` FOREIGN KEY (`SeasonYear`) REFERENCES `Seasons` (`Year`),
+  CONSTRAINT `TeamResults_ibfk_2` FOREIGN KEY (`TeamID`) REFERENCES `Teams` (`TeamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `TeamResults`
+--
+
+LOCK TABLES `TeamResults` WRITE;
+/*!40000 ALTER TABLE `TeamResults` DISABLE KEYS */;
+/*!40000 ALTER TABLE `TeamResults` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `TeamStandings`
 --
 
@@ -327,4 +379,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-29 23:11:11
+-- Dump completed on 2020-09-29 23:19:59

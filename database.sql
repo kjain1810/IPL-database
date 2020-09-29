@@ -157,36 +157,31 @@ LOCK TABLES `Players` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `plays`
+-- Table structure for table `Plays`
 --
 
-DROP TABLE IF EXISTS `plays`;
+DROP TABLE IF EXISTS `Plays`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `plays` (
+CREATE TABLE `Plays` (
   `Team_ID` int DEFAULT NULL,
   `Season_Year` int DEFAULT NULL,
   `Match_ID` int DEFAULT NULL,
-  `Stadium_name` varchar(150) DEFAULT NULL,
-  `Stadium_city` varchar(40) DEFAULT NULL,
+  `Stadium` varchar(80) DEFAULT NULL,
   KEY `team_id_foreign` (`Team_ID`),
   KEY `match_id_foreign` (`Match_ID`),
-  KEY `Stadium_name` (`Stadium_name`,`Stadium_city`),
-  KEY `Season_Year` (`Season_Year`),
   CONSTRAINT `match_id_foreign` FOREIGN KEY (`Match_ID`) REFERENCES `Matches` (`ID`),
-  CONSTRAINT `plays_ibfk_1` FOREIGN KEY (`Stadium_name`, `Stadium_city`) REFERENCES `Stadium` (`Stadium_Name`, `Stadium_City`),
-  CONSTRAINT `plays_ibfk_2` FOREIGN KEY (`Season_Year`) REFERENCES `Seasons` (`Year`),
   CONSTRAINT `team_id_foreign` FOREIGN KEY (`Team_ID`) REFERENCES `Teams` (`TeamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `plays`
+-- Dumping data for table `Plays`
 --
 
-LOCK TABLES `plays` WRITE;
-/*!40000 ALTER TABLE `plays` DISABLE KEYS */;
-/*!40000 ALTER TABLE `plays` ENABLE KEYS */;
+LOCK TABLES `Plays` WRITE;
+/*!40000 ALTER TABLE `Plays` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Plays` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -300,4 +295,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-27 16:17:52
+-- Dump completed on 2020-09-27 13:28:12

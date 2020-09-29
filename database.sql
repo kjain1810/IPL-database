@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
 --
 -- Host: localhost    Database: IPL
 -- ------------------------------------------------------
--- Server version	8.0.21-0ubuntu0.20.04.4
+-- Server version	8.0.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -157,33 +157,31 @@ LOCK TABLES `Players` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Plays`
+-- Table structure for table `PlayerScorecard`
 --
 
-DROP TABLE IF EXISTS `Plays`;
+DROP TABLE IF EXISTS `PlayerScorecard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Plays` (
-  `Team_ID` int DEFAULT NULL,
-  `Season_Year` int DEFAULT NULL,
-  `Match_ID` int DEFAULT NULL,
-  `Stadium` varchar(80) DEFAULT NULL,
-  KEY `team_id_foreign` (`Team_ID`),
-  KEY `match_id_foreign` (`Match_ID`),
-  CONSTRAINT `match_id_foreign` FOREIGN KEY (`Match_ID`) REFERENCES `Matches` (`ID`),
-  CONSTRAINT `Plays_ibfk_1` FOREIGN KEY (`Stadium_name`, `Stadium_city`) REFERENCES `Stadium` (`Stadium_Name`, `Stadium_City`),
-  CONSTRAINT `Plays_ibfk_2` FOREIGN KEY (`Season_Year`) REFERENCES `Seasons` (`Year`),
-  CONSTRAINT `team_id_foreign` FOREIGN KEY (`Team_ID`) REFERENCES `Teams` (`TeamID`)
+CREATE TABLE `PlayerScorecard` (
+  `MatchID` int NOT NULL,
+  `PlayerID` int NOT NULL,
+  `Wickets` int DEFAULT NULL,
+  `Runs` int DEFAULT NULL,
+  PRIMARY KEY (`MatchID`,`PlayerID`),
+  KEY `PlayerID` (`PlayerID`),
+  CONSTRAINT `playerscorecard_ibfk_1` FOREIGN KEY (`MatchID`) REFERENCES `Matches` (`ID`),
+  CONSTRAINT `playerscorecard_ibfk_2` FOREIGN KEY (`PlayerID`) REFERENCES `Players` (`PlayerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Plays`
+-- Dumping data for table `PlayerScorecard`
 --
 
-LOCK TABLES `Plays` WRITE;
-/*!40000 ALTER TABLE `Plays` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Plays` ENABLE KEYS */;
+LOCK TABLES `PlayerScorecard` WRITE;
+/*!40000 ALTER TABLE `PlayerScorecard` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PlayerScorecard` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -221,7 +219,13 @@ DROP TABLE IF EXISTS `Seasons`;
 CREATE TABLE `Seasons` (
   `Year` int NOT NULL,
   `Finished` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`Year`)
+  `PurpleCap` int DEFAULT NULL,
+  `OrangeCap` int DEFAULT NULL,
+  PRIMARY KEY (`Year`),
+  KEY `PurpleCap` (`PurpleCap`),
+  KEY `OrangeCap` (`OrangeCap`),
+  CONSTRAINT `seasons_ibfk_1` FOREIGN KEY (`PurpleCap`) REFERENCES `Players` (`PlayerID`),
+  CONSTRAINT `seasons_ibfk_2` FOREIGN KEY (`OrangeCap`) REFERENCES `Players` (`PlayerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -315,6 +319,32 @@ LOCK TABLES `TeamResults` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Teams`
+--
+
+DROP TABLE IF EXISTS `Teams`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Teams` (
+  `TeamID` int NOT NULL AUTO_INCREMENT,
+  `Name` varchar(80) NOT NULL,
+  `CaptainID` int DEFAULT NULL,
+  PRIMARY KEY (`TeamID`),
+  KEY `CaptainID` (`CaptainID`),
+  CONSTRAINT `Teams_ibfk_1` FOREIGN KEY (`CaptainID`) REFERENCES `Players` (`PlayerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Teams`
+--
+
+LOCK TABLES `Teams` WRITE;
+/*!40000 ALTER TABLE `Teams` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Teams` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `TeamStandings`
 --
 
@@ -340,32 +370,6 @@ LOCK TABLES `TeamStandings` WRITE;
 /*!40000 ALTER TABLE `TeamStandings` DISABLE KEYS */;
 /*!40000 ALTER TABLE `TeamStandings` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `Teams`
---
-
-DROP TABLE IF EXISTS `Teams`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Teams` (
-  `TeamID` int NOT NULL AUTO_INCREMENT,
-  `Name` varchar(80) NOT NULL,
-  `CaptainID` int DEFAULT NULL,
-  PRIMARY KEY (`TeamID`),
-  KEY `CaptainID` (`CaptainID`),
-  CONSTRAINT `Teams_ibfk_1` FOREIGN KEY (`CaptainID`) REFERENCES `Players` (`PlayerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Teams`
---
-
-LOCK TABLES `Teams` WRITE;
-/*!40000 ALTER TABLE `Teams` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Teams` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -376,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-29 23:19:59
+-- Dump completed on 2020-09-30  0:19:05

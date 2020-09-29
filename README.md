@@ -14,14 +14,14 @@ Major project for Data and Application course during Monsoon'20 semester
 - [x] Bowler<br>
 - [x] AllRounder<br>
 - [x] TeamManagement<br>
-- [ ] Seasons<br>
-- [ ] Matches<br>
+- [x] Seasons<br>
+- [x] Matches<br>
 - [x] Stadium<br>
 - [x] TeamStandings<br>
 - [x] Plays<br>
 - [x] Scorecard<br>
 - [x] TeamResults<br>
-- [ ] PlayerScorecard<br>
+- [x] PlayerScorecard<br>
 
 # Useful MySQL commands
 Adding so I dont have to google these again and again :P

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for Linux (x86_64)
 --
 -- Host: localhost    Database: IPL
 -- ------------------------------------------------------
--- Server version	8.0.21
+-- Server version	8.0.21-0ubuntu0.20.04.4
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -171,6 +171,8 @@ CREATE TABLE `Plays` (
   KEY `team_id_foreign` (`Team_ID`),
   KEY `match_id_foreign` (`Match_ID`),
   CONSTRAINT `match_id_foreign` FOREIGN KEY (`Match_ID`) REFERENCES `Matches` (`ID`),
+  CONSTRAINT `Plays_ibfk_1` FOREIGN KEY (`Stadium_name`, `Stadium_city`) REFERENCES `Stadium` (`Stadium_Name`, `Stadium_City`),
+  CONSTRAINT `Plays_ibfk_2` FOREIGN KEY (`Season_Year`) REFERENCES `Seasons` (`Year`),
   CONSTRAINT `team_id_foreign` FOREIGN KEY (`Team_ID`) REFERENCES `Teams` (`TeamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -182,6 +184,31 @@ CREATE TABLE `Plays` (
 LOCK TABLES `Plays` WRITE;
 /*!40000 ALTER TABLE `Plays` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Plays` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Scorecard`
+--
+
+DROP TABLE IF EXISTS `Scorecard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Scorecard` (
+  `MatchID` int DEFAULT NULL,
+  `Team1` int DEFAULT NULL,
+  `Team2` int DEFAULT NULL,
+  KEY `MatchID` (`MatchID`),
+  CONSTRAINT `Scorecard_ibfk_1` FOREIGN KEY (`MatchID`) REFERENCES `Matches` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Scorecard`
+--
+
+LOCK TABLES `Scorecard` WRITE;
+/*!40000 ALTER TABLE `Scorecard` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Scorecard` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -261,6 +288,60 @@ LOCK TABLES `TeamManagement` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `TeamResults`
+--
+
+DROP TABLE IF EXISTS `TeamResults`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `TeamResults` (
+  `SeasonYear` int DEFAULT NULL,
+  `TeamID` int DEFAULT NULL,
+  `Points` int DEFAULT NULL,
+  KEY `SeasonYear` (`SeasonYear`),
+  KEY `TeamID` (`TeamID`),
+  CONSTRAINT `TeamResults_ibfk_1` FOREIGN KEY (`SeasonYear`) REFERENCES `Seasons` (`Year`),
+  CONSTRAINT `TeamResults_ibfk_2` FOREIGN KEY (`TeamID`) REFERENCES `Teams` (`TeamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `TeamResults`
+--
+
+LOCK TABLES `TeamResults` WRITE;
+/*!40000 ALTER TABLE `TeamResults` DISABLE KEYS */;
+/*!40000 ALTER TABLE `TeamResults` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `TeamStandings`
+--
+
+DROP TABLE IF EXISTS `TeamStandings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `TeamStandings` (
+  `TeamID` int DEFAULT NULL,
+  `SeasonYear` int DEFAULT NULL,
+  `Standing` int DEFAULT NULL,
+  KEY `TeamID` (`TeamID`),
+  KEY `SeasonYear` (`SeasonYear`),
+  CONSTRAINT `TeamStandings_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `Teams` (`TeamID`),
+  CONSTRAINT `TeamStandings_ibfk_2` FOREIGN KEY (`SeasonYear`) REFERENCES `Seasons` (`Year`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `TeamStandings`
+--
+
+LOCK TABLES `TeamStandings` WRITE;
+/*!40000 ALTER TABLE `TeamStandings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `TeamStandings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Teams`
 --
 
@@ -295,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-27 13:28:12
+-- Dump completed on 2020-09-29 23:19:59

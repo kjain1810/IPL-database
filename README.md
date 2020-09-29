@@ -17,10 +17,10 @@ Major project for Data and Application course during Monsoon'20 semester
 - [ ] Seasons<br>
 - [ ] Matches<br>
 - [x] Stadium<br>
-- [ ] TeamStandings<br>
-- [ ] Plays<br>
-- [ ] Scorecard<br>
-- [ ] TeamResults<br>
+- [x] TeamStandings<br>
+- [x] Plays<br>
+- [x] Scorecard<br>
+- [x] TeamResults<br>
 - [ ] PlayerScorecard<br>
 
 # Useful MySQL commands

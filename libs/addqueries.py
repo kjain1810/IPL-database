@@ -5,8 +5,15 @@ def addPlayer(cur, con):
         newPlayer = {}
         newPlayer["Name"] = input("Name: ")
         newPlayer["Age"] = int(input("Age: "))
-        query = "INSERT INTO Players(Name, Age) VALUES ('%s', %d)" % (
-            newPlayer["Name"], newPlayer["Age"])
+        newPlayer["TeamID"] = int(input("TeamID: "))
+        newPlayer["Role"] = input("Role(Batsman, Bowler, AllRounder): ")
+        query = "INSERT INTO Players(Name, Age, TeamID) VALUES ('%s', %d, %d)" % (
+            newPlayer["Name"], newPlayer["Age"], newPlayer["TeamID"])
+        cur.execute(query)
+        query = "SELECT last_insert_id()"
+        cur.execute(query)
+        rows = cur.fetchall()
+        query = "INSERT INTO %s(PlayerID) VALUES (%d)" % (newPlayer["Role"], rows[0]["last_insert_id()"])
         cur.execute(query)
         con.commit()
         print("Player added!")
@@ -65,7 +72,7 @@ def addMatch(cur, con):
                 wickets = int(input("Wickets: "))
                 playerScorecard.append(
                     {"PlayerID": teamPlayers[j]["PlayerID"], "Runs": runs, "Wickets": wickets})
-
+        print(playerScorecard)
     except Exception as e:
         con.rollback()
         print("Addition failed :(")

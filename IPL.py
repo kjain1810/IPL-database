@@ -45,7 +45,7 @@ def main():
                     elif choice == 3:
                         addMatch()
                     elif choice == 4:
-                        addSeason()
+                        addSeason(cur, con)
                     elif choice == 5:
                         addStadium()
                     else:

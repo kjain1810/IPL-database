@@ -38,7 +38,18 @@ def addMatch():
     pass
 
 
-def addSeason():
+def addSeason(cur, con):
+    try: 
+        SeasonYear = int(input("Season Year: "))
+        query = "INSERT INTO Seasons(Year) VALUES (%d)" % (SeasonYear)
+        cur.execute(query)
+        con.commit()
+        print("Season Added!")
+    except Exception as e:
+        con.rollback()
+        print("Addition failed :(")
+        print("Error: ", e)
+    tmp = input("Enter any key to continue> ")
     pass
 
 

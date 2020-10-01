@@ -59,7 +59,7 @@ def addMatch(cur, con):
                 rows[i]["TeamID"])
             cur.execute(query)
             teamPlayers = cur.fetchall()
-            if len(teamPlayers) != 1:
+            if len(teamPlayers) != 2:
                 print("Team %s does not have exactly 11 players!" %
                       (rows[i]["Name"]))
                 tmp = input("Enter any key to continue> ")
@@ -72,7 +72,31 @@ def addMatch(cur, con):
                 wickets = int(input("Wickets: "))
                 playerScorecard.append(
                     {"PlayerID": teamPlayers[j]["PlayerID"], "Runs": runs, "Wickets": wickets})
-        print(playerScorecard)
+        roles = ["Batsman", "Bowler", "AllRounder"]
+        previousinfo = {}
+        for i in roles:
+            query = "SELECT * FROM Players natural join %s where (TeamID = %d or TeamID = %d)" % (i,teamID1, teamID2)
+            cur.execute(query)
+            templist = cur.fetchall()
+            for j in templist:
+                previousinfo[j["PlayerID"]] = j
+        for i in playerScorecard:
+            if("CurrentRuns" in previousinfo[i["PlayerID"]].keys()) and ("CurrentWickets" in previousinfo[i["PlayerID"]].keys()):
+                runs = i["Runs"] + previousinfo[i["PlayerID"]]["CurrentRuns"]
+                totalruns = i["Runs"] + previousinfo[i["PlayerID"]]["TotalRuns"]
+                wickets = i["Wickets"] + previousinfo[i["PlayerID"]]["CurrentWickets"]
+                totalwickets = i["Wickets"] + previousinfo[i["PlayerID"]]["TotalWickets"]
+                query = "UPDATE AllRounder SET CurrentRuns = %d, TotalRuns = %d, CurrentWickets = %d, TotalWickets = %d WHERE PlayerID = %d" % (runs, totalruns, wickets, totalwickets, i["PlayerID"])
+            elif ("CurrentRuns" in previousinfo[i["PlayerID"]].keys()):
+                runs = i["Runs"] + previousinfo[i["PlayerID"]]["CurrentRuns"]
+                totalruns = i["Runs"] + previousinfo[i["PlayerID"]]["TotalRuns"]
+                query = "UPDATE Batsman SET CurrentRuns = %d, TotalRuns = %d WHERE PlayerID = %d" % (runs, totalruns, i["PlayerID"])
+            elif ("CurrentWickets" in previousinfo[i["PlayerID"]].keys()):
+                wickets = i["Wickets"] + previousinfo[i["PlayerID"]]["CurrentWickets"]
+                totalwickets = i["Wickets"] + previousinfo[i["PlayerID"]]["TotalWickets"]
+                query = "UPDATE Bowler SET CurrentWickets = %d, TotalWickets = %d WHERE PlayerID = %d" % (wickets, totalwickets, i["PlayerID"])
+            cur.execute(query)
+            con.commit()
     except Exception as e:
         con.rollback()
         print("Addition failed :(")

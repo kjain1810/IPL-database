@@ -5,7 +5,7 @@ def addPlayer(cur, con):
         newPlayer = {}
         newPlayer["Name"] = input("Name: ")
         newPlayer["Age"] = int(input("Age: "))
-        query = "INSERT INTO Players(Name, Age) VALUES ('%s', %s)" % (
+        query = "INSERT INTO Players(Name, Age) VALUES ('%s', %d)" % (
             newPlayer["Name"], newPlayer["Age"])
         cur.execute(query)
         con.commit()
@@ -44,7 +44,3 @@ def addSeason():
 
 def addStadium():
     pass
-
-
-if __name__ == '__main__':
-    addPlayer()

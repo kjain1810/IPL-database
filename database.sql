@@ -141,8 +141,8 @@ DROP TABLE IF EXISTS `PlayerScorecard`;
 CREATE TABLE `PlayerScorecard` (
   `MatchID` int NOT NULL,
   `PlayerID` int NOT NULL,
-  `Wickets` int DEFAULT NULL,
-  `Runs` int DEFAULT NULL,
+  `Wickets` int DEFAULT '0',
+  `Runs` int DEFAULT '0',
   PRIMARY KEY (`MatchID`,`PlayerID`),
   KEY `PlayerID` (`PlayerID`),
   CONSTRAINT `playerscorecard_ibfk_1` FOREIGN KEY (`MatchID`) REFERENCES `Matches` (`ID`),
@@ -179,7 +179,7 @@ CREATE TABLE `Players` (
   KEY `TeamID` (`TeamID`),
   CONSTRAINT `Players_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `Teams` (`TeamID`),
   CONSTRAINT `Age_positive` CHECK ((`Age` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +188,6 @@ CREATE TABLE `Players` (
 
 LOCK TABLES `Players` WRITE;
 /*!40000 ALTER TABLE `Players` DISABLE KEYS */;
-INSERT INTO `Players` VALUES ('P1',25,0,0,1,NULL),('P2',23,0,0,2,NULL);
 /*!40000 ALTER TABLE `Players` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +341,7 @@ DROP TABLE IF EXISTS `TeamResults`;
 CREATE TABLE `TeamResults` (
   `SeasonYear` int DEFAULT NULL,
   `TeamID` int DEFAULT NULL,
-  `Points` int DEFAULT NULL,
+  `Points` int DEFAULT '0',
   KEY `SeasonYear` (`SeasonYear`),
   KEY `TeamID` (`TeamID`),
   CONSTRAINT `TeamResults_ibfk_1` FOREIGN KEY (`SeasonYear`) REFERENCES `Seasons` (`Year`),
@@ -410,7 +409,6 @@ CREATE TABLE `Teams` (
 
 LOCK TABLES `Teams` WRITE;
 /*!40000 ALTER TABLE `Teams` DISABLE KEYS */;
-INSERT INTO `Teams` VALUES (1,'Hum subah jaldi uthkar aaye hai',NULL);
 /*!40000 ALTER TABLE `Teams` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -423,4 +421,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-30  5:12:50
+-- Dump completed on 2020-10-01 23:25:31

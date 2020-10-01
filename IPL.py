@@ -43,11 +43,11 @@ def main():
                     elif choice == 2:
                         addTeam(cur, con)
                     elif choice == 3:
-                        addMatch()
+                        addMatch(cur, con)
                     elif choice == 4:
                         addSeason(cur, con)
                     elif choice == 5:
-                        addStadium()
+                        addStadium(cur, con)
                     else:
                         print("Invalid choice")
 

@@ -34,12 +34,48 @@ def addTeam(cur, con):
     return
 
 
-def addMatch():
-    pass
+def addMatch(cur, con):
+    try:
+        teamID1 = int(input("Enter ID of first team: "))
+        teamID2 = int(input("Enter ID of second team: "))
+        query = "SELECT * FROM Teams WHERE TeamID in (%d, %d)" % (
+            teamID1, teamID2)
+        cur.execute(query)
+        rows = cur.fetchall()
+        if len(rows) != 2:
+            print("Invalid teams!")
+            tmp = input("Enter any key to continue> ")
+            return
+        playerScorecard = []
+        for i in range(len(rows)):
+            query = "SELECT * FROM Players WHERE TeamID=%d" % (
+                rows[i]["TeamID"])
+            cur.execute(query)
+            teamPlayers = cur.fetchall()
+            if len(teamPlayers) != 1:
+                print("Team %s does not have exactly 11 players!" %
+                      (rows[i]["Name"]))
+                tmp = input("Enter any key to continue> ")
+                return
+            print("Enter player performances of team %s" % (rows[i]["Name"]))
+            for j in range(len(teamPlayers)):
+                print(teamPlayers[j]["Name"] + "(ID %d)" %
+                      (teamPlayers[j]["PlayerID"]))
+                runs = int(input("Runs: "))
+                wickets = int(input("Wickets: "))
+                playerScorecard.append(
+                    {"PlayerID": teamPlayers[j]["PlayerID"], "Runs": runs, "Wickets": wickets})
+
+    except Exception as e:
+        con.rollback()
+        print("Addition failed :(")
+        print("Error: ", e)
+    tmp = input("Enter any key to continue> ")
+    return
 
 
 def addSeason(cur, con):
-    try: 
+    try:
         SeasonYear = int(input("Season Year: "))
         query = "INSERT INTO Seasons(Year) VALUES (%d)" % (SeasonYear)
         cur.execute(query)

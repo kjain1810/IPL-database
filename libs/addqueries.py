@@ -42,5 +42,20 @@ def addSeason():
     pass
 
 
-def addStadium():
-    pass
+def addStadium(cur, con):
+    try:
+        stadiumName = input("Enter name: ")
+        stadiumCity = input("Enter city: ")
+        maxCap = int(input("Enter max capacity: "))
+        homeTeamID = int(input("Enter home team ID: "))
+        query = "INSERT INTO Stadium(Stadium_Name, Stadium_City, Max_capacity, Home_Team) VALUES ('%s', '%s', %d, %d)" % (
+            stadiumName, stadiumCity, maxCap, homeTeamID)
+        cur.execute(query)
+        con.commit()
+        print("Stadium added!")
+    except Exception as e:
+        con.rollback()
+        print("Addition failed :(")
+        print("Error: ", e)
+    tmp = input("Enter any key to continue")
+    return

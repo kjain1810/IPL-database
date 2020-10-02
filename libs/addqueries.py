@@ -13,7 +13,8 @@ def addPlayer(cur, con):
         query = "SELECT last_insert_id()"
         cur.execute(query)
         rows = cur.fetchall()
-        query = "INSERT INTO %s(PlayerID) VALUES (%d)" % (newPlayer["Role"], rows[0]["last_insert_id()"])
+        query = "INSERT INTO %s(PlayerID) VALUES (%d)" % (
+            newPlayer["Role"], rows[0]["last_insert_id()"])
         cur.execute(query)
         con.commit()
         print("Player added!")
@@ -75,7 +76,8 @@ def addMatch(cur, con):
         roles = ["Batsman", "Bowler", "AllRounder"]
         previousinfo = {}
         for i in roles:
-            query = "SELECT * FROM Players natural join %s where (TeamID = %d or TeamID = %d)" % (i,teamID1, teamID2)
+            query = "SELECT * FROM Players natural join %s where (TeamID = %d or TeamID = %d)" % (
+                i, teamID1, teamID2)
             cur.execute(query)
             templist = cur.fetchall()
             for j in templist:
@@ -83,18 +85,27 @@ def addMatch(cur, con):
         for i in playerScorecard:
             if("CurrentRuns" in previousinfo[i["PlayerID"]].keys()) and ("CurrentWickets" in previousinfo[i["PlayerID"]].keys()):
                 runs = i["Runs"] + previousinfo[i["PlayerID"]]["CurrentRuns"]
-                totalruns = i["Runs"] + previousinfo[i["PlayerID"]]["TotalRuns"]
-                wickets = i["Wickets"] + previousinfo[i["PlayerID"]]["CurrentWickets"]
-                totalwickets = i["Wickets"] + previousinfo[i["PlayerID"]]["TotalWickets"]
-                query = "UPDATE AllRounder SET CurrentRuns = %d, TotalRuns = %d, CurrentWickets = %d, TotalWickets = %d WHERE PlayerID = %d" % (runs, totalruns, wickets, totalwickets, i["PlayerID"])
+                totalruns = i["Runs"] + \
+                    previousinfo[i["PlayerID"]]["TotalRuns"]
+                wickets = i["Wickets"] + \
+                    previousinfo[i["PlayerID"]]["CurrentWickets"]
+                totalwickets = i["Wickets"] + \
+                    previousinfo[i["PlayerID"]]["TotalWickets"]
+                query = "UPDATE AllRounder SET CurrentRuns = %d, TotalRuns = %d, CurrentWickets = %d, TotalWickets = %d WHERE PlayerID = %d" % (
+                    runs, totalruns, wickets, totalwickets, i["PlayerID"])
             elif ("CurrentRuns" in previousinfo[i["PlayerID"]].keys()):
                 runs = i["Runs"] + previousinfo[i["PlayerID"]]["CurrentRuns"]
-                totalruns = i["Runs"] + previousinfo[i["PlayerID"]]["TotalRuns"]
-                query = "UPDATE Batsman SET CurrentRuns = %d, TotalRuns = %d WHERE PlayerID = %d" % (runs, totalruns, i["PlayerID"])
+                totalruns = i["Runs"] + \
+                    previousinfo[i["PlayerID"]]["TotalRuns"]
+                query = "UPDATE Batsman SET CurrentRuns = %d, TotalRuns = %d WHERE PlayerID = %d" % (
+                    runs, totalruns, i["PlayerID"])
             elif ("CurrentWickets" in previousinfo[i["PlayerID"]].keys()):
-                wickets = i["Wickets"] + previousinfo[i["PlayerID"]]["CurrentWickets"]
-                totalwickets = i["Wickets"] + previousinfo[i["PlayerID"]]["TotalWickets"]
-                query = "UPDATE Bowler SET CurrentWickets = %d, TotalWickets = %d WHERE PlayerID = %d" % (wickets, totalwickets, i["PlayerID"])
+                wickets = i["Wickets"] + \
+                    previousinfo[i["PlayerID"]]["CurrentWickets"]
+                totalwickets = i["Wickets"] + \
+                    previousinfo[i["PlayerID"]]["TotalWickets"]
+                query = "UPDATE Bowler SET CurrentWickets = %d, TotalWickets = %d WHERE PlayerID = %d" % (
+                    wickets, totalwickets, i["PlayerID"])
             cur.execute(query)
             con.commit()
     except Exception as e:
@@ -117,7 +128,7 @@ def addSeason(cur, con):
         print("Addition failed :(")
         print("Error: ", e)
     tmp = input("Enter any key to continue> ")
-    pass
+    return
 
 
 def addStadium(cur, con):

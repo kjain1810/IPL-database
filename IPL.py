@@ -5,6 +5,8 @@ import pymysql as sql
 import pymysql.cursors as sqlcursor
 
 from libs.addqueries import addPlayer, addTeam, addSeason, addMatch, addStadium
+from libs.removequeries import removePlayer, removeTeam, removeSeason, removeMatch, removeStadium
+from libs.updatequeries import updatePlayer, updateTeam, updateSeason, updateMatch, updateStadium
 
 
 def main():
@@ -37,6 +39,12 @@ def main():
                     print("3. Add match")
                     print("4. Add season")
                     print("5. Add stadium")
+                    print("6, Delete player")
+                    print("7, Delete team")
+                    print("8, Update player")
+                    print("9, Update Team")
+                    print("10, Update Stadium")
+                    print("11, Update Season")
                     choice = int(input("Enter choice> "))
                     if choice == 1:
                         addPlayer(cur, con)
@@ -48,6 +56,18 @@ def main():
                         addSeason(cur, con)
                     elif choice == 5:
                         addStadium(cur, con)
+                    elif choice == 6:
+                        removePlayer(cur, con)
+                    elif choice == 7:
+                        removeTeam(cur, con)
+                    elif choice == 8:
+                        updatePlayer(cur, con)
+                    elif choice == 9:
+                        updateTeam(cur, con)
+                    elif choice == 10:
+                        updateStadium(cur, con)
+                    elif choice == 11:
+                        updateSeason(cur, con)
                     else:
                         print("Invalid choice")
 

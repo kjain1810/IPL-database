@@ -12,6 +12,18 @@ def updatePlayer(cur, con):
         new_name = input("New Name: ")
         new_age = int(input("New Age: "))
         new_teamId = int(input("New TeamID: "))
+        query = "SELECT * FROM Players WHERE (PlayerID = %d)" % (playerid)
+        cur.execute(query)
+        rows = cur.fetchall()
+        previous_team = rows[0]["TeamID"]
+        if(previous_team != new_teamId):
+            query = "SELECT * FROM Teams WHERE (TeamID = %d)" % (previous_team)
+            cur.execute(query)
+            rows = cur.fetchall()
+            if(playerid == rows[0]["CaptainID"]):
+                print("Can't change the player team since player in captain of the team :(")
+                tmp = input("Enter any key to continue> ")
+                return
         # new_role = input("Role(Batsman, Bowler, AllRounder): ")
         query = "UPDATE Players SET Name = '%s', Age = %d, TeamID = %d WHERE PlayerID = %d" % (
             new_name, new_age, new_teamId, playerid)

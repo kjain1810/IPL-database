@@ -12,9 +12,9 @@ Major project for Data and Application course during Monsoon'20 semester
 - [ ] Calculate average total wickets and/or average total runs of a player.
 - [ ] Search Players, Teams, Matches or Seasons by name.
 - [ ] Retrieve number of matches played in a stadium.
-- [ ] Add matches, players, teams, seasons.
+- [x] Add matches, players, teams, seasons.
 - [ ] Remove matches, players, teams, seasons.
-- [ ] Update matches, players, teams, seasons.
+- [x] Update matches, players, teams, seasons.(Matches left)
 
 # Database Requirements [COMPLETED]
 - [x] Players <br>

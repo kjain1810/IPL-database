@@ -36,8 +36,14 @@ def updateTeam(cur, con):
         teamid = int(
             input("Select TeamID of Team whose data you wish to change: "))
         new_name = input("New Name: ")
-        query = "UPDATE Teams SET Name = '%s' WHERE TeamID = %d" % (
-            new_name, teamid)
+        query = "SELECT PlayerID, Name FROM Players WHERE (TeamID = %d)" % (teamid)
+        cur.execute(query)
+        rows = cur.fetchall()
+        for i in rows:
+            print(i)
+        captainID = int(input("Select the PlayerID of the team Captain: "))
+        query = "UPDATE Teams SET Name = '%s', CaptainID = %d WHERE TeamID = %d" % (
+            new_name, captainID, teamid)
         cur.execute(query)
         con.commit()
         print("Team Updated!")

@@ -73,6 +73,7 @@ def addMatch(cur, con):
                 wickets = int(input("Wickets: "))
                 playerScorecard.append(
                     {"PlayerID": teamPlayers[j]["PlayerID"], "Runs": runs, "Wickets": wickets})
+        # taking prevoius records of the players involved in the match
         roles = ["Batsman", "Bowler", "AllRounder"]
         previousinfo = {}
         for i in roles:
@@ -82,6 +83,7 @@ def addMatch(cur, con):
             templist = cur.fetchall()
             for j in templist:
                 previousinfo[j["PlayerID"]] = j
+        # Making the changes of the score card to the record of players
         for i in playerScorecard:
             if("CurrentRuns" in previousinfo[i["PlayerID"]].keys()) and ("CurrentWickets" in previousinfo[i["PlayerID"]].keys()):
                 runs = i["Runs"] + previousinfo[i["PlayerID"]]["CurrentRuns"]

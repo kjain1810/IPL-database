@@ -148,7 +148,8 @@ def addMatch(cur, con):
         umpireTwo = input("Enter field umpire 2' name: ")
 
         # input stadium and check
-        query = "SELECT Stadium_Name, Stadium_City, Home_Team FROM Stadium where (Home_Team = %d or Home_Team = %d)" % (teamID1, teamID2)
+        query = "SELECT Stadium_Name, Stadium_City, Home_Team FROM Stadium where (Home_Team = %d or Home_Team = %d)" % (
+            teamID1, teamID2)
         cur.execute(query)
         rows1 = cur.fetchall()
         print("Home Stadiums of teams")
@@ -196,7 +197,6 @@ def addMatch(cur, con):
                 query = "UPDATE Bowler SET CurrentWickets = %d, TotalWickets = %d WHERE PlayerID = %d" % (
                     wickets, totalwickets, i["PlayerID"])
             cur.execute(query)
-            con.commit()
 
             # check for updates in season orange and purple caps
             if orangeCapRuns < runs:
@@ -204,20 +204,19 @@ def addMatch(cur, con):
                     i["PlayerID"], season)
                 orangeCapRuns = runs
                 cur.execute(query)
-                con.commit()
             if purpleCapWickets < wickets:
                 query = "UPDATE Seasons SET PurpleCap=%d WHERE Year=%d" % (
                     i["PlayerID"], season)
                 purpleCapWickets = wickets
                 cur.execute(query)
-                con.commit()
-            query = "SELECT * FROM PLAYERS WHERE PlayerID = %d" % (i["PlayerID"])
+            query = "SELECT * FROM PLAYERS WHERE PlayerID = %d" % (
+                i["PlayerID"])
             cur.execute(query)
             playerdata = cur.fetchall()
             totalmathches = playerdata[0]["MatchesPlayed"] + 1
-            query = "UPDATE Players set MatchesPlayed = %d where PlayerID = %d" % (totalmathches, i["PlayerID"])
+            query = "UPDATE Players set MatchesPlayed = %d where PlayerID = %d" % (
+                totalmathches, i["PlayerID"])
             cur.execute(query)
-            con.commit()
 
         # input MoM and check correctness of it
         for i in playerScorecard:
@@ -231,14 +230,13 @@ def addMatch(cur, con):
             tmp = input("Enter any key to continue> ")
             return
         update_no_of_mom = MoMList[0]["MoM"] + 1
-        query = "UPDATE Players set MoM=%d where PlayerID=%d" % (update_no_of_mom, MoM)
+        query = "UPDATE Players set MoM=%d where PlayerID=%d" % (
+            update_no_of_mom, MoM)
         cur.execute(query)
-        con.commit()
         # insert Matches and get matchid
         query = "INSERT INTO Matches(Season, WinnerID, Stadium_name, Stadium_city, Mom, Feild_Umpire1, Feild_Umpire2) VALUES (%d, %d, '%s', '%s', %d, '%s', '%s')" % (
             season, winner, stadiumName, stadiumCity, MoM, umpireOne, umpireTwo)
         cur.execute(query)
-        con.commit()
         query = "SELECT last_insert_id()"
         cur.execute(query)
         tmp = cur.fetchall()
@@ -248,24 +246,20 @@ def addMatch(cur, con):
         query = "INSERT INTO Scorecard(MatchID, Team1, Team2) VALUES (%d, %d, %d)" % (
             matchID, teamID1, teamID2)
         cur.execute(query)
-        con.commit()
 
         # update PlayerScorecard
         for i in playerScorecard:
             query = "INSERT INTO PlayerScorecard(MatchID, PlayerID, Wickets, Runs) VALUES (%d, %d, %d, %d)" % (
                 matchID, i["PlayerID"], i["Wickets"], i["Runs"])
             cur.execute(query)
-            con.commit()
 
         # update Plays
         query = "INSERT INTO Plays(Match_ID, Team_ID, Season_Year, Stadium_name, Stadium_city) VALUES (%d, %d, %d, '%s', '%s')" % (
             matchID, teamID1, season, stadiumName, stadiumCity)
         cur.execute(query)
-        con.commit()
         query = "INSERT INTO Plays(Match_ID, Team_ID, Season_Year, Stadium_name, Stadium_city) VALUES (%d, %d, %d, '%s', '%s')" % (
             matchID, teamID2, season, stadiumName, stadiumCity)
         cur.execute(query)
-        con.commit()
 
         # update TeamStandings
         query = "SELECT * FROM TeamResults WHERE TeamID=%d AND SeasonYear=%d" % (
@@ -276,13 +270,12 @@ def addMatch(cur, con):
             query = "INSERT INTO TeamResults(TeamID, SeasonYear, Points) VALUES (%d, %d, %d)" % (
                 winner, season, 2)
             cur.execute(query)
-            con.commit()
         else:
             newpoints = tmp[0]["Points"] + 2
             query = "UPDATE TeamResults SET Points=%d WHERE (TeamID=%d AND SeasonYear=%d)" % (
                 newpoints, winner, season)
             cur.execute(query)
-            con.commit()
+        con.commit()
     except Exception as e:
         con.rollback()
         print("Addition failed :(")
@@ -323,6 +316,8 @@ def addStadium(cur, con):
         print("Error: ", e)
     tmp = input("Enter any key to continue")
     return
+
+
 def addTeammanagement(cur, con):
     try:
         query = "SELECT * FROM Teams"
@@ -330,10 +325,13 @@ def addTeammanagement(cur, con):
         rows = cur.fetchall()
         for i in rows:
             print(i)
-        teamID = int(input("Enter the TeamID for which you want to add the management: "))
+        teamID = int(
+            input("Enter the TeamID for which you want to add the management: "))
         name = input("Enter the name of the management: ")
-        role = input("Enter the role that you want to assign to the management: ")
-        query = "INSERT INTO TeamManagement(TeamID, Name, Role) VALUES (%d, '%s', '%s')" % (teamID, name, role)
+        role = input(
+            "Enter the role that you want to assign to the management: ")
+        query = "INSERT INTO TeamManagement(TeamID, Name, Role) VALUES (%d, '%s', '%s')" % (
+            teamID, name, role)
         cur.execute(query)
         con.commit()
         print("Team Mangement added!")

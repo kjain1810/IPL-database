@@ -4,7 +4,7 @@ import subprocess as sp
 import pymysql as sql
 import pymysql.cursors as sqlcursor
 
-from libs.addqueries import addPlayer, addTeam, addSeason, addMatch, addStadium
+from libs.addqueries import addPlayer, addTeam, addSeason, addMatch, addTeammanagement
 from libs.removequeries import removePlayer, removeTeam, removeSeason, removeMatch, removeStadium
 from libs.updatequeries import updatePlayer, updateTeam, updateSeason, updateMatch, updateStadium
 from libs.viewall import viewPlayers, viewMatches, viewTeams, viewStadiums, viewSeasons
@@ -18,7 +18,8 @@ def addMenu(cur, con):
         print("3. Add match")
         print("4. Add season")
         print("5. Add stadium")
-        print("6. Exit")
+        print("6. Add Team Management")
+        print("7. Exit")
         choice = int(input("Enter choice> "))
         if choice == 1:
             addPlayer(cur, con)
@@ -31,6 +32,8 @@ def addMenu(cur, con):
         elif choice == 5:
             addStadium(cur, con)
         elif choice == 6:
+            addTeammanagement(cur, con)
+        elif choice == 7:
             return
         else:
             print("Invalid choice")

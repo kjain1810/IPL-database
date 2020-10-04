@@ -323,3 +323,23 @@ def addStadium(cur, con):
         print("Error: ", e)
     tmp = input("Enter any key to continue")
     return
+def addTeammanagement(cur, con):
+    try:
+        query = "SELECT * FROM Teams"
+        cur.execute(query)
+        rows = cur.fetchall()
+        for i in rows:
+            print(i)
+        teamID = int(input("Enter the TeamID for which you want to add the management: "))
+        name = input("Enter the name of the management: ")
+        role = input("Enter the role that you want to assign to the management: ")
+        query = "INSERT INTO TeamManagement(TeamID, Name, Role) VALUES (%d, '%s', '%s')" % (teamID, name, role)
+        cur.execute(query)
+        con.commit()
+        print("Team Mangement added!")
+    except Exception as e:
+        con.rollback()
+        print("Addition Failed :(")
+        print("Error: ", e)
+    tmp = input("Enter any key to continue")
+    return

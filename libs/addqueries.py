@@ -79,7 +79,6 @@ def addMatch(cur, con):
             print("Season finished")
             tmp = input("Enter any key to continue> ")
             return
-
         # fetch current runs of orangecap and purple cap
         orangeCapPlayerID = sList[0]["OrangeCap"]
         purpleCapPlayerID = sList[0]["PurpleCap"]
@@ -98,16 +97,15 @@ def addMatch(cur, con):
             orangeCapRuns = tmp[0]["CurrentRuns"]
         if purpleCapPlayerID != None:
             query = "SELECT CurrentWickets FROM Bowler WHERE PlayerID=%d" % (
-                orangeCapPlayerID)
+                purpleCapPlayerID)
             cur.execute(query)
             tmp = cur.fetchall()
             if len(tmp) == 0:
                 query = "SELECT CurrentWickets FROM AllRounder WHERE PlayerID=%d" % (
-                    orangeCapPlayerID)
+                    purpleCapPlayerID)
                 cur.execute(query)
                 tmp = cur.fetchall()
             purpleCapWickets = tmp[0]["CurrentWickets"]
-
         # check number of players for both teams
         # input performance of every player
         playerScorecard = []
@@ -117,7 +115,7 @@ def addMatch(cur, con):
                 rows[i]["TeamID"])
             cur.execute(query)
             teamPlayers = cur.fetchall()
-            if len(teamPlayers) != 2:
+            if len(teamPlayers) != 11:
                 print("Team %s does not have exactly 11 players!" %
                       (rows[i]["Name"]))
                 tmp = input("Enter any key to continue> ")
@@ -213,6 +211,14 @@ def addMatch(cur, con):
                 purpleCapWickets = wickets
                 cur.execute(query)
                 con.commit()
+            query = "SELECT * FROM PLAYERS WHERE PlayerID = %d" % (i["PlayerID"])
+            cur.execute(query)
+            playerdata = cur.fetchall()
+            totalmathches = playerdata[0]["MatchesPlayed"] + 1
+            query = "UPDATE Players set MatchesPlayed = %d where PlayerID = %d" % (totalmathches, i["PlayerID"])
+            cur.execute(query)
+            con.commit()
+
         # input MoM and check correctness of it
         for i in playerScorecard:
             print(i)

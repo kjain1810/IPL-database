@@ -5,18 +5,37 @@ def topScorerCurrentSeason(cur, con):
         query = "SELECT OrangeCap, PurpleCap FROM Seasons where (Finished = 0)"
         cur.execute(query)
         data = cur.fetchall()
+        if(len(data) == 0):
+            print("No season going on :(")
+            tmp = input("Press any key to continue> ")
+            return
         maxrunsID = data[0]["OrangeCap"]
         maxwicketsID = data[0]["PurpleCap"]
         print("Maxruns scorer:")
-        query = "SELECT * FROM Players where (PlayerID = %d)" % (maxrunsID)
+        query = "SELECT * FROM Players natural join Batsman where PlayerID = %d" % (maxrunsID)
+        # query = "SELECT * FROM Players where (PlayerID = %d)" % (maxrunsID)
         cur.execute(query)
         data = cur.fetchall()
-        print(data[0])
+        query = "SELECT * FROM Players natural join Allrounder where PlayerID = %d" % (maxrunsID)
+        cur.execute(query)
+        data1 = cur.fetchall()
+        if(len(data) == 0):
+            print(data1[0])
+        else:
+            print(data[0])
         print("Maxwickets taker:")
-        query = "SELECT * FROM Players where (PlayerID = %d)" % (maxwicketsID)
+        query = "SELECT * FROM Players natural join Bowler where PlayerID = %d" % (maxwicketsID)
+        # query = "SELECT * FROM Players where (PlayerID = %d)" % (maxrunsID)
         cur.execute(query)
         data = cur.fetchall()
-        print(data[0])
+        query = "SELECT * FROM Players natural join Allrounder where PlayerID = %d" % (maxwicketsID)
+        cur.execute(query)
+        data1 = cur.fetchall()
+        if(len(data) == 0):
+            print(data1[0])
+        else:
+            print(data[0])  
+            
 
     except Exception as e:
         print("Couldn't fetch list :(")
@@ -289,4 +308,21 @@ def reportAverageOverall(cur, con):
 
 
 def reportMatchesPlayed(cur, con):
-    pass
+    try:
+        query = "SELECT * FROM Stadium"
+        cur.execute(query)
+        data = cur.fetchall()
+        print("List of stadiums")
+        for i in data:
+            print(i)
+        stadiumname = input("Enter the name of the stadium for which you want to count the number of matches: ")
+        stadiumcity = input("Enter the city of the stadium for which you want to count the number of matches: ")
+        query = "SELECT * FROM Plays where (Stadium_name = '%s' AND Stadium_city = '%s')" % (stadiumname, stadiumcity)
+        cur.execute(query)
+        data = cur.fetchall()
+        print("Number of matches played in " + stadiumname + ',' + stadiumcity + ' are ' + str(len(data)))
+        tmp = input("Print any key to continue> ")
+    except Exception as e:
+        print("Unable to retrieve :(")
+        print("Error: ", e)
+        tmp = input("Print any key to continue> ")

@@ -11,7 +11,7 @@ Major project for Data and Application course during Monsoon'20 semester
 - [ ] Retrieve position of a team in a particular season, position of a team across all seasons and their points in the ongoing season.
 - [x] Calculate average total wickets and/or average total runs of a player.
 - [ ] Search Players, Teams, Matches or Seasons by name.
-- [ ] Retrieve number of matches played in a stadium.
+- [x] Retrieve number of matches played in a stadium.
 - [x] Add matches, players, teams, seasons.
 - [ ] Remove matches, players, teams, seasons.
 - [x] Update matches, players, teams, seasons.(Matches left)

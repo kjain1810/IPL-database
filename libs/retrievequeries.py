@@ -102,7 +102,32 @@ def positionInPrevious(cur, con):
 
 
 def pointsInPrevious(cur, con):
-    pass
+    try:
+        query = "SELECT * FROM Teams"
+        cur.execute(query)
+        data = cur.fetchall()
+        print("List of Teams:")
+        for i in data:
+            print(i)
+        teamID = int(input("Enter the teamID of team of which you want to retrive points: "))
+        query = "SELECT * FROM Seasons where (Finished = 1)"
+        cur.execute(query)
+        data = cur.fetchall()
+        print("List of Seasons:")
+        for i in data:
+            print(i)
+        seasonID = int(input("Enter the seasonID of season for which you want to retrive points: "))
+        query = "SELECT * FROM TeamResults where (TeamID = %d AND SeasonYear = %d)" % (teamID, seasonID)
+        cur.execute(query)
+        data = cur.fetchall()
+        print("The points of the team were " + str(data[0]["Points"]))
+        tmp = input("Print any key to continue> ")
+    except Exception as e:
+        print("Unable to retrieve :(")
+        print("Error: ", e)
+        tmp = input("Print any key to continue> ")
+
+
 
 
 def currentStandings(cur, con):

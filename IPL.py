@@ -7,7 +7,7 @@ import pymysql.cursors as sqlcursor
 from libs.addqueries import addPlayer, addTeam, addSeason, addMatch, addTeammanagement
 from libs.removequeries import removePlayer, removeTeam, removeSeason, removeMatch, removeStadium
 from libs.updatequeries import updatePlayer, updateTeam, updateSeason, updateMatch, updateStadium
-from libs.viewall import viewPlayers, viewMatches, viewTeams, viewStadiums, viewSeasons
+from libs.viewall import viewPlayers, viewMatches, viewTeams, viewStadiums, viewSeasons, viewPlayersAndTeamManagement
 
 
 def addMenu(cur, con):
@@ -87,7 +87,8 @@ def viewMenu(cur, con):
         print("3. View all seasons")
         print("4. View all matches")
         print("5. View all stadiums")
-        print("6. Exit")
+        print("6. View players and team management of a team")
+        print("7. Exit")
         choice = int(input("Enter choice> "))
         if choice == 1:
             viewPlayers(cur, con)
@@ -100,6 +101,8 @@ def viewMenu(cur, con):
         elif choice == 5:
             viewStadiums(cur, con)
         elif choice == 6:
+            viewPlayersAndTeamManagement(cur, con)
+        elif choice == 7:
             return
         else:
             print("Invalid choice")

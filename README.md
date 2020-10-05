@@ -5,7 +5,7 @@ Major project for Data and Application course during Monsoon'20 semester
 1. ```mysql -u username -p IPL < database.sql```
 
 # Functional Requirements
-- [ ] Retrieve Players, Teams, Matches or Seasons table informations.
+- [x] Retrieve Players, Teams, Matches or Seasons table informations.
 - [ ] Retrieve all players and management of a Team.
 - [ ] Retrieve overall top scorers or top scorers of currently running season in terms of runs and wickets.
 - [ ] Retrieve position of a team in a particular season, position of a team across all seasons and their points in the ongoing season.

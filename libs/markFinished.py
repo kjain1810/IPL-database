@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 def markFinished(cur, con):
     try:
         query = "SELECT Year FROM Seasons WHERE Finished=0"

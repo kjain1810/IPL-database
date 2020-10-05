@@ -115,7 +115,7 @@ def addMatch(cur, con):
                 rows[i]["TeamID"])
             cur.execute(query)
             teamPlayers = cur.fetchall()
-            if len(teamPlayers) != 3:
+            if len(teamPlayers) != 11:
                 print("Team %s does not have exactly 11 players!" %
                       (rows[i]["Name"]))
                 tmp = input("Enter any key to continue> ")
@@ -263,18 +263,29 @@ def addMatch(cur, con):
 
         # update TeamStandings
         query = "SELECT * FROM TeamResults WHERE TeamID=%d AND SeasonYear=%d" % (
+            teamID1, season)
+        cur.execute()
+        resList = cur.fetchall()
+        if len(resList) == 0:
+            query = "INSERT INTO TeamResults(TeamID, SeasonYear, Points) VALUES (%d, %d, 0)" % (
+                teamID1, season)
+            cur.execute(query)
+        query = "SELECT * FROM TeamResults WHERE TeamID=%d AND SeasonYear=%d" % (
+            teamID2, season)
+        cur.execute()
+        resList = cur.fetchall()
+        if len(resList) == 0:
+            query = "INSERT INTO TeamResults(TeamID, SeasonYear, Points) VALUES (%d, %d, 0)" % (
+                teamID2, season)
+            cur.execute(query)
+        query = "SELECT * FROM TeamResults WHERE TeamID=%d AND SeasonYear=%d" % (
             winner, season)
         cur.execute(query)
         tmp = cur.fetchall()
-        if len(tmp) == 0:
-            query = "INSERT INTO TeamResults(TeamID, SeasonYear, Points) VALUES (%d, %d, %d)" % (
-                winner, season, 2)
-            cur.execute(query)
-        else:
-            newpoints = tmp[0]["Points"] + 2
-            query = "UPDATE TeamResults SET Points=%d WHERE (TeamID=%d AND SeasonYear=%d)" % (
-                newpoints, winner, season)
-            cur.execute(query)
+        newpoints = tmp[0]["Points"] + 2
+        query = "UPDATE TeamResults SET Points=%d WHERE (TeamID=%d AND SeasonYear=%d)" % (
+            newpoints, winner, season)
+        cur.execute(query)
         con.commit()
     except Exception as e:
         con.rollback()

@@ -20,13 +20,16 @@ def markFinished(cur, con):
             cur.execute(query)
             query = "UPDATE AllRounder SET CurrentRuns=0, CurrentWickets=0"
             cur.execute(query)
-            query = "SELECT TeamID, Points FROM TeamResults"
+            query = "SELECT TeamID, Points FROM TeamResults WHERE SeasonYear=%d" % (
+                seasonToUpdate)
             cur.execute(query)
             teamList = cur.fetchall()
             sortedList = sorted(teamList, key=lambda i: i["Points"])
             for i in range(len(sortedList)):
+                print(sortedList[i])
                 query = "INSERT INTO TeamStandings(TeamID, SeasonYear, Standing) VALUES (%d, %d, %d)" % (
                     sortedList[i]["TeamID"], seasonToUpdate, i + 1)
+                print(query)
                 cur.execute(query)
             query = "UPDATE Seasons SET Finished=1 WHERE Year=%d" % (
                 seasonToUpdate)

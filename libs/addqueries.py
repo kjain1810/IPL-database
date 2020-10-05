@@ -286,6 +286,14 @@ def addMatch(cur, con):
 
 def addSeason(cur, con):
     try:
+        query = "SELECT Year FROM Seasons WHERE Finished=0"
+        cur.execute(query)
+        checkRunning = cur.fetchall()
+        if len(checkRunning) != 0:
+            print("Oops, seems like year %d is running right now!" %
+                  (checkRunning[0]["Year"]))
+            tmp = input("Enter any key to continue> ")
+            return
         SeasonYear = int(input("Season Year: "))
         query = "INSERT INTO Seasons(Year) VALUES (%d)" % (SeasonYear)
         cur.execute(query)

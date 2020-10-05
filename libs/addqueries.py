@@ -115,7 +115,7 @@ def addMatch(cur, con):
                 rows[i]["TeamID"])
             cur.execute(query)
             teamPlayers = cur.fetchall()
-            if len(teamPlayers) != 3:
+            if len(teamPlayers) != 11:
                 print("Team %s does not have exactly 11 players!" %
                       (rows[i]["Name"]))
                 tmp = input("Enter any key to continue> ")

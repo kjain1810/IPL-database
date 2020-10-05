@@ -122,7 +122,7 @@ def statsMenu(cur, con):
         print("7. Retrieve average scores of a player in current season")
         print("8. Retrieve matches played in a stadium")
         print("9. Exit")
-        choice = int(input("Enter chouce> "))
+        choice = int(input("Enter choice> "))
         if choice == 1:
             topScorerCurrentSeason(cur, con)
         elif choice == 2:

@@ -115,7 +115,7 @@ def addMatch(cur, con):
                 rows[i]["TeamID"])
             cur.execute(query)
             teamPlayers = cur.fetchall()
-            if len(teamPlayers) != 11:
+            if len(teamPlayers) != 3:
                 print("Team %s does not have exactly 11 players!" %
                       (rows[i]["Name"]))
                 tmp = input("Enter any key to continue> ")
@@ -209,7 +209,7 @@ def addMatch(cur, con):
                     i["PlayerID"], season)
                 purpleCapWickets = wickets
                 cur.execute(query)
-            query = "SELECT * FROM PLAYERS WHERE PlayerID = %d" % (
+            query = "SELECT * FROM Players WHERE PlayerID = %d" % (
                 i["PlayerID"])
             cur.execute(query)
             playerdata = cur.fetchall()

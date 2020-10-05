@@ -9,6 +9,7 @@ from libs.removequeries import removePlayer, removeTeam, removeSeason, removeMat
 from libs.updatequeries import updatePlayer, updateTeam, updateSeason, updateMatch, updateStadium
 from libs.viewall import viewPlayers, viewMatches, viewTeams, viewStadiums, viewSeasons, viewPlayersAndTeamManagement
 from libs.markFinished import markFinished
+from libs.retrievequeries import *
 
 
 def addMenu(cur, con):
@@ -109,6 +110,41 @@ def viewMenu(cur, con):
             print("Invalid choice")
 
 
+def statsMenu(cur, con):
+    while True:
+        tmp = sp.call("clear", shell=True)
+        print("1. Retrieve topscorers of current season")
+        print("2. Retrieve overall top scorers")
+        print("3. Retrieve positions of a team in previous seasons")
+        print("4. Retrieve points of a team in previous seasons")
+        print("5. Retrieve current season standings")
+        print("6. Retrieve average scores of a player")
+        print("7. Retrieve average scores of a player in current season")
+        print("8. Retrieve matches played in a stadium")
+        print("9. Exit")
+        choice = int(input("Enter choice> "))
+        if choice == 1:
+            topScorerCurrentSeason(cur, con)
+        elif choice == 2:
+            topScorerOverall(cur, con)
+        elif choice == 3:
+            positionInPrevious(cur, con)
+        elif choice == 4:
+            pointsInPrevious(cur, con)
+        elif choice == 5:
+            currentStandings(cur, con)
+        elif choice == 6:
+            reportAverageOverall(cur, con)
+        elif choice == 7:
+            reportAverageCurrent(cur, con)
+        elif choice == 8:
+            reportMatchesPlayed(cur, con)
+        elif choice == 9:
+            return
+        else:
+            print("Invalid choice")
+
+
 def main():
     while(1):
         tmp = sp.call("clear", shell=True)
@@ -139,6 +175,7 @@ def main():
                     print("3. To go to update menu")
                     print("4. To go to view menu")
                     print("5. To mark currently running season as finished")
+                    print("6. Retrieve statistic")
                     choice = int(input("Enter choice> "))
                     if choice == 1:
                         addMenu(cur, con)
@@ -150,6 +187,8 @@ def main():
                         viewMenu(cur, con)
                     elif choice == 5:
                         markFinished(cur, con)
+                    elif choice == 6:
+                        statsMenu(cur, con)
                     else:
                         print("Invalid choice")
 

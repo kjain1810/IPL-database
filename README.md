@@ -7,9 +7,9 @@ Major project for Data and Application course during Monsoon'20 semester
 # Functional Requirements
 - [x] Retrieve Players, Teams, Matches or Seasons table informations.
 - [x] Retrieve all players and management of a Team.
-- [ ] Retrieve overall top scorers or top scorers of currently running season in terms of runs and wickets.
+- [x] Retrieve overall top scorers or top scorers of currently running season in terms of runs and wickets.
 - [ ] Retrieve position of a team in a particular season, position of a team across all seasons and their points in the ongoing season.
-- [ ] Calculate average total wickets and/or average total runs of a player.
+- [x] Calculate average total wickets and/or average total runs of a player.
 - [ ] Search Players, Teams, Matches or Seasons by name.
 - [ ] Retrieve number of matches played in a stadium.
 - [x] Add matches, players, teams, seasons.

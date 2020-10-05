@@ -55,13 +55,15 @@ def topScorerOverall(cur, con):
         res = cur.fetchall()
         maxallrounderruns = res[0]["Maxruns"]
         if(maxbatsmanruns > maxallrounderruns):
-            query = "SELECT * FROM Players NATURAL JOIN Batsman WHERE TotalRuns = %d" % (maxbatsmanruns)
+            query = "SELECT * FROM Players NATURAL JOIN Batsman WHERE TotalRuns = %d" % (
+                maxbatsmanruns)
             cur.execute(query)
             data = cur.fetchall()
             print("Maximum Runs")
             print(data[0])
         else:
-            query = "SELECT * FROM Players NATURAL JOIN AllRounder WHERE TotalRuns = %d" % (maxallrounderruns)
+            query = "SELECT * FROM Players NATURAL JOIN AllRounder WHERE TotalRuns = %d" % (
+                maxallrounderruns)
             cur.execute(query)
             data = cur.fetchall()
             print("Maximum Runs")
@@ -75,13 +77,15 @@ def topScorerOverall(cur, con):
         res = cur.fetchall()
         maxallrounderwickets = res[0]["Maxwickets"]
         if(maxallrounderwickets < maxbowlerwickets):
-            query = "SELECT * FROM Players NATURAL JOIN Bowler WHERE TotalWickets = %d" % (maxbowlerwickets)
+            query = "SELECT * FROM Players NATURAL JOIN Bowler WHERE TotalWickets = %d" % (
+                maxbowlerwickets)
             cur.execute(query)
             data = cur.fetchall()
             print("Maximum Wickets")
             print(data[0])
         else:
-            query = "SELECT * FROM Players NATURAL JOIN AllRounder WHERE TotalWickets = %d" % (maxallrounderwickets)
+            query = "SELECT * FROM Players NATURAL JOIN AllRounder WHERE TotalWickets = %d" % (
+                maxallrounderwickets)
             cur.execute(query)
             data = cur.fetchall()
             print("Maximum Wickets")
@@ -91,7 +95,6 @@ def topScorerOverall(cur, con):
         print("Error: ", e)
     tmp = input("Press any key to continue> ")
     return
-    
 
 
 def positionInPrevious(cur, con):
@@ -103,7 +106,32 @@ def pointsInPrevious(cur, con):
 
 
 def currentStandings(cur, con):
-    pass
+    try:
+        query = "SELECT * FROM Seasons WHERE Finished=0"
+        cur.execute(query)
+        seasonList = cur.fetchall()
+        if len(seasonList) == 0:
+            print("No season ongoing!")
+            tmp = input("Press any key to continue> ")
+            return
+        season = seasonList[0]["Year"]
+        query = "SELECT * FROM TeamResults WHERE SeasonYear=%d" % (season)
+        cur.execute(query)
+        teamResults = cur.fetchall()
+        sortedTeamResults = sorted(teamResults, key=lambda i: i["Points"])
+        for i in range(len(sortedTeamResults)):
+            query = "SELECT Name FROM Teams WHERE TeamID=%d" % (
+                sortedTeamResults[i]["TeamID"])
+            cur.execute(query)
+            teamNameList = cur.fetchall()
+            teamName = teamNameList[0]["Name"]
+            print("Position %d: %s(Team ID: %d) with %d points" % (
+                len(sortedTeamResults) - i, teamName, sortedTeamResults[i]["TeamID"], sortedTeamResults[i]["Points"]))
+        tmp = input("Press any key to continue> ")
+    except Exception as e:
+        print("Couldn't get standings :(")
+        print("Error: ", e)
+        tmp = input("Press any key to continue> ")
 
 
 def reportAverageCurrent(cur, con):

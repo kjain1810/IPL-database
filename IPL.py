@@ -176,6 +176,7 @@ def main():
                     print("4. To go to view menu")
                     print("5. To mark currently running season as finished")
                     print("6. Retrieve statistic")
+                    print("7. Exit")
                     choice = int(input("Enter choice> "))
                     if choice == 1:
                         addMenu(cur, con)
@@ -189,6 +190,8 @@ def main():
                         markFinished(cur, con)
                     elif choice == 6:
                         statsMenu(cur, con)
+                    elif choice == 7:
+                        return
                     else:
                         print("Invalid choice")
 

@@ -10,6 +10,7 @@ from libs.updatequeries import updatePlayer, updateTeam, updateSeason, updateMat
 from libs.viewall import viewPlayers, viewMatches, viewTeams, viewStadiums, viewSeasons, viewPlayersAndTeamManagement
 from libs.markFinished import markFinished
 from libs.retrievequeries import *
+from libs.searchname import searchPlayer, searchStadium, searchTeam
 
 
 def addMenu(cur, con):
@@ -145,6 +146,26 @@ def statsMenu(cur, con):
             print("Invalid choice")
 
 
+def searchMenu(cur, con):
+    while True:
+        tmp = sp.call("clear", shell=True)
+        print("1. Seach for player")
+        print("2. Search for team")
+        print("3. Search for stadium")
+        print("4. Exit")
+        choice = int(input("Enter choice> "))
+        if choice == 1:
+            searchPlayer(cur, con)
+        elif choice == 2:
+            searchTeam(cur, con)
+        elif choice == 3:
+            searchStadium(cur, con)
+        elif choice == 4:
+            return
+        else:
+            print("Invalid choice")
+
+
 def main():
     while(1):
         tmp = sp.call("clear", shell=True)
@@ -176,7 +197,8 @@ def main():
                     print("4. To go to view menu")
                     print("5. To mark currently running season as finished")
                     print("6. Retrieve statistic")
-                    print("7. Exit")
+                    print("7. Search by name")
+                    print("8. Exit")
                     choice = int(input("Enter choice> "))
                     if choice == 1:
                         addMenu(cur, con)
@@ -191,6 +213,8 @@ def main():
                     elif choice == 6:
                         statsMenu(cur, con)
                     elif choice == 7:
+                        searchMenu(cur, con)
+                    elif choice == 8:
                         return
                     else:
                         print("Invalid choice")

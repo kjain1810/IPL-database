@@ -98,7 +98,23 @@ def topScorerOverall(cur, con):
 
 
 def positionInPrevious(cur, con):
-    pass
+    try:
+        teamID = int(input("Enter team ID: "))
+        season = int(input("Enter season year: "))
+        query = "SELECT * FROM TeamStandings WHERE TeamID=%d AND SeasonYear=%d" % (
+            teamID, season)
+        cur.execute(query)
+        res = cur.fetchall()
+        if len(res) == 0:
+            print("Team %d didn't participate in year %d" % (teamID, season))
+        else:
+            print("Team %d was at position %d in year %d" %
+                  (teamID, res[0]["Standing"], season))
+        tmp = input("Press any key to continue> ")
+    except Exception as e:
+        print("Couldn't retrieve :(")
+        print("Error: ", e)
+        tmp = input("Press any key to continue> ")
 
 
 def pointsInPrevious(cur, con):

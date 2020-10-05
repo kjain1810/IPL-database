@@ -4,10 +4,11 @@ import subprocess as sp
 import pymysql as sql
 import pymysql.cursors as sqlcursor
 
-from libs.addqueries import addPlayer, addTeam, addSeason, addMatch, addTeammanagement
+from libs.addqueries import addPlayer, addTeam, addSeason, addMatch, addTeammanagement, addStadium
 from libs.removequeries import removePlayer, removeTeam, removeSeason, removeMatch, removeStadium
 from libs.updatequeries import updatePlayer, updateTeam, updateSeason, updateMatch, updateStadium
 from libs.viewall import viewPlayers, viewMatches, viewTeams, viewStadiums, viewSeasons, viewPlayersAndTeamManagement
+from libs.markFinished import markFinished
 
 
 def addMenu(cur, con):
@@ -137,6 +138,7 @@ def main():
                     print("2. To go to delete menu")
                     print("3. To go to update menu")
                     print("4. To go to view menu")
+                    print("5. To mark currently running season as finished")
                     choice = int(input("Enter choice> "))
                     if choice == 1:
                         addMenu(cur, con)
@@ -146,6 +148,8 @@ def main():
                         updateMenu(cur, con)
                     elif choice == 4:
                         viewMenu(cur, con)
+                    elif choice == 5:
+                        markFinished(cur, con)
                     else:
                         print("Invalid choice")
 

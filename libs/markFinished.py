@@ -18,10 +18,10 @@ def markFinished(cur, con):
         query = "SELECT TeamID, Points FROM TeamResults"
         cur.execute(query)
         teamList = cur.fetchall()
-        sortedList = sorted(teamList, key=lambda i: i["points"])
+        sortedList = sorted(teamList, key=lambda i: i["Points"])
         for i in range(len(sortedList)):
-            query = "INSERT INTO TeamResults(TeamID, SeasonYear, Standing) VALUES (%d, %d, %d)" % (
-                sortedList["TeamId"], seasonToUpdate, i + 1)
+            query = "INSERT INTO TeamStandings(TeamID, SeasonYear, Standing) VALUES (%d, %d, %d)" % (
+                sortedList[i]["TeamID"], seasonToUpdate, i + 1)
             cur.execute(query)
         query = "UPDATE Seasons SET Finished=1 WHERE Year=%d" % (
             seasonToUpdate)

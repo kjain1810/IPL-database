@@ -11,10 +11,10 @@ def addPlayer(cur, con):
         rows = [x.values() for x in rows]
         print(tabulate(rows, headers, tablefmt="pretty"))
         newPlayer = {}
-        newPlayer["Player Name"] = input("Name: ")
-        newPlayer["Player Age"] = int(input("Age: "))
-        newPlayer["Player TeamID"] = int(input("TeamID(Select from above table): "))
-        newPlayer["Player Role"] = input("Role(Batsman, Bowler, AllRounder): ")
+        newPlayer["Name"] = input("Player Name: ")
+        newPlayer["Age"] = int(input("PlayerAge: "))
+        newPlayer["TeamID"] = int(input("TeamID(Select from above table): "))
+        newPlayer["Role"] = input("Role(Batsman, Bowler, AllRounder): ")
         query = "INSERT INTO Players(Name, Age, TeamID) VALUES ('%s', %d, %d)" % (
             newPlayer["Name"], newPlayer["Age"], newPlayer["TeamID"])
         cur.execute(query)

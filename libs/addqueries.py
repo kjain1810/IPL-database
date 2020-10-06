@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 
+from tabulate import tabulate
+
 def addPlayer(cur, con):
     try:
+        query = "SELECT * FROM Teams"
+        cur.execute(query)
+        rows = cur.fetchall()
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
         newPlayer = {}
-        newPlayer["Name"] = input("Name: ")
-        newPlayer["Age"] = int(input("Age: "))
-        newPlayer["TeamID"] = int(input("TeamID: "))
-        newPlayer["Role"] = input("Role(Batsman, Bowler, AllRounder): ")
+        newPlayer["Player Name"] = input("Name: ")
+        newPlayer["Player Age"] = int(input("Age: "))
+        newPlayer["Player TeamID"] = int(input("TeamID(Select from above table): "))
+        newPlayer["Player Role"] = input("Role(Batsman, Bowler, AllRounder): ")
         query = "INSERT INTO Players(Name, Age, TeamID) VALUES ('%s', %d, %d)" % (
             newPlayer["Name"], newPlayer["Age"], newPlayer["TeamID"])
         cur.execute(query)
@@ -55,8 +63,14 @@ def addMatch(cur, con):
     """
     try:
         # input teams and check existence
-        teamID1 = int(input("Enter ID of first team: "))
-        teamID2 = int(input("Enter ID of second team: "))
+        query = "SELECT * FROM Teams"
+        cur.execute(query)
+        rows = cur.fetchall()
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
+        teamID1 = int(input("Enter ID of first team(use above table): "))
+        teamID2 = int(input("Enter ID of second team(use above table): "))
         query = "SELECT * FROM Teams WHERE TeamID in (%d, %d)" % (
             teamID1, teamID2)
         cur.execute(query)
@@ -122,6 +136,7 @@ def addMatch(cur, con):
                 return
             print("Enter player performances of team %s" % (rows[i]["Name"]))
             thisTeam = 0
+            # TODO here
             for j in range(len(teamPlayers)):
                 print(teamPlayers[j]["Name"] + "(ID %d)" %
                       (teamPlayers[j]["PlayerID"]))
@@ -153,6 +168,7 @@ def addMatch(cur, con):
         cur.execute(query)
         rows1 = cur.fetchall()
         print("Home Stadiums of teams")
+         # TODO here
         for i in rows1:
             print(i)
         stadiumName = input("Enter stadium name: ")

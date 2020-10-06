@@ -25,6 +25,7 @@ def markFinished(cur, con):
             cur.execute(query)
             teamList = cur.fetchall()
             sortedList = sorted(teamList, key=lambda i: i["Points"])
+            #TODO here
             for i in range(len(sortedList)):
                 print(sortedList[i])
                 query = "INSERT INTO TeamStandings(TeamID, SeasonYear, Standing) VALUES (%d, %d, %d)" % (

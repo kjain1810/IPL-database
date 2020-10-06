@@ -123,12 +123,14 @@ def pointsInPrevious(cur, con):
         cur.execute(query)
         data = cur.fetchall()
         print("List of Teams:")
+        #TODO here
         for i in data:
             print(i)
         teamID = int(input("Enter the teamID of team of which you want to retrive points: "))
         query = "SELECT * FROM Seasons where (Finished = 1)"
         cur.execute(query)
         data = cur.fetchall()
+        #TODO here
         print("List of Seasons:")
         for i in data:
             print(i)
@@ -189,6 +191,7 @@ def reportAverageCurrent(cur, con):
         cur.execute(query)
         playerList = cur.fetchall()
         print("Player list: ")
+        #TODO here
         for i in range(len(playerList)):
             print(playerList[i])
         playerID = int(input("Enter ID of player: "))
@@ -209,6 +212,7 @@ def reportAverageCurrent(cur, con):
         query = "SELECT * FROM temptable2 WHERE Season=%d" % (season)
         cur.execute(query)
         curMatchList = cur.fetchall()
+        #TODO here
         for i in curMatchList:
             print(i)
         curMatches = len(curMatchList)

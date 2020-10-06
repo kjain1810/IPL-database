@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 
+from tabulate import tabulate
+
 def updatePlayer(cur, con):
     try:
         query = "SELECT * FROM Players;"
         cur.execute(query)
         rows = cur.fetchall()
-        for i in range(len(rows)):
-            print(rows[i])
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
+        # for i in range(len(rows)):
+        #     print(rows[i])
         playerid = int(
             input("Select PlayerID of Player whose data you wish to change: "))
         new_name = input("New Name: ")
@@ -44,8 +49,11 @@ def updateTeam(cur, con):
         query = "SELECT * FROM Teams"
         cur.execute(query)
         rows = cur.fetchall()
-        for i in range(len(rows)):
-            print(rows[i])
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
+        # for i in range(len(rows)):
+        #     print(rows[i])
         teamid = int(
             input("Select TeamID of Team whose data you wish to change: "))
         new_name = input("New Name: ")
@@ -78,8 +86,11 @@ def updateSeason(cur, con):
         query = "SELECT * FROM Seasons;"
         cur.execute(query)
         rows = cur.fetchall()
-        for i in range(len(rows)):
-            print(rows[i])
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
+        # for i in range(len(rows)):
+        #     print(rows[i])
         oldyear = int(input("Select Year whose data you wish to change: "))
         SeasonYear = int(input("New Year: "))
         query = "UPDATE Seasons SET Year = %d WHERE Year = %d" % (
@@ -100,8 +111,11 @@ def updateStadium(cur, con):
         query = "SELECT * FROM Stadium;"
         cur.execute(query)
         rows = cur.fetchall()
-        for i in range(len(rows)):
-            print(rows[i])
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
+        # for i in range(len(rows)):
+        #     print(rows[i])
         stadiumname = input(
             "Select Stadium Name of Stadium whose data you wish to change: ")
         stadiumName = input("New name: ")

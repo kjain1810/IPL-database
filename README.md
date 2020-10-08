@@ -22,8 +22,9 @@ To run this mini-world on your system you need:
    `pip install tabulate`
 
 # Loading the database
-1. ```mysql -u ***username*** -p IPL < populatedDatabase.sql```
-2. ```mysql -u ***username*** -p IPL < database.sql```
+
+1. <code>mysql -u <em>username</em> -p IPL < populatedDatabase.sql</code>
+2. <code>mysql -u <em>username</em> -p IPL < database.sql</code>
 
 Use the first command if you want to use a populated database and test the features only. 
 Use the second command if you want to use a fresh database which is not populated. 

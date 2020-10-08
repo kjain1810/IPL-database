@@ -119,7 +119,10 @@ def statsMenu(cur, con):
         print("6. Retrieve average scores of a player")
         print("7. Retrieve average scores of a player in current season")
         print("8. Retrieve matches played in a stadium")
-        print("9. Exit")
+        print("9. Retrieve players according to their experience")
+        print("10 Retrieve players with greater than average runs")
+        print("11 Retrieve players with greater than average wickets")
+        print("12. Exit")
         choice = int(input("Enter choice> "))
         if choice == 1:
             topScorerCurrentSeason(cur, con)
@@ -138,6 +141,12 @@ def statsMenu(cur, con):
         elif choice == 8:
             reportMatchesPlayed(cur, con)
         elif choice == 9:
+            getPlayersAccToExperience(cur, con)
+        elif choice == 10:
+            getPlayerGreaterThanAvgRuns(cur, con)
+        elif choice == 11:
+            getPlayerGreaterThanAvgWickets(cur, con)
+        elif choice == 12:
             return
         else:
             print("Invalid choice")

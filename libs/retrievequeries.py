@@ -370,6 +370,87 @@ def reportAverageOverall(cur, con):
         print("Error: ", e)
         tmp = input("Print any key to continue> ")
 
+def getPlayersAccToExperience(cur, con):
+    try:
+        matches = int(input("Enter the minimum number of matches according to which you want to print the players: "))
+        query = "SELECT * FROM Players WHERE MatchesPlayed >= %d" % (matches)
+        cur.execute(query)
+        rows = cur.fetchall()
+        if(len(rows) <= 1):
+            print("No such player with this much experience")
+            tmp = input("Print any key to continue> ")
+            return
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
+    except Exception as e:
+        print("Unable to retrieve :(")
+        print("Error: ", e)
+    tmp = input("Print any key to continue> ")
+
+def getPlayerGreaterThanAvgRuns(cur, con):
+    try:
+        query = "SELECT SUM(TotalRuns), Count(*) from Batsman"
+        cur.execute(query)
+        data1 = cur.fetchall()
+        query = "SELECT SUM(TotalRuns), Count(*) from AllRounder"
+        cur.execute(query)
+        data2 = cur.fetchall()
+        totalavg = (data1[0]["SUM(TotalRuns)"]+data2[0]["SUM(TotalRuns)"])/(data1[0]["Count(*)"]+data2[0]["Count(*)"])
+        query = "SELECT * FROM Batsman WHERE TotalRuns >= %d" % (totalavg)
+        cur.execute(query)
+        data1 = cur.fetchall()
+        query = "SELECT * FROM AllRounder WHERE TotalRuns >= %d" % (totalavg)
+        cur.execute(query)
+        data2 = cur.fetchall()
+        finallist = []
+        for i in data1:
+            finallist.append(i["PlayerID"])
+        for i in data2:
+            finallist.append(i["PlayerID"])
+        for i in finallist:
+            query = "SELECT * FROM Players WHERE PlayerID = %d" % (i)
+            cur.execute(query)
+            rows = cur.fetchall()
+            headers = rows[0].keys()
+            rows = [x.values() for x in rows]
+            print(tabulate(rows, headers, tablefmt="pretty"))
+    except Exception as e:
+        print("Unable to retrieve :(")
+        print("Error: ", e)
+    tmp = input("Print any key to continue> ")
+
+def getPlayerGreaterThanAvgWickets(cur,con):
+    try:
+        query = "SELECT SUM(TotalWickets), Count(*) from Bowler"
+        cur.execute(query)
+        data1 = cur.fetchall()
+        query = "SELECT SUM(TotalWickets), Count(*) from AllRounder"
+        cur.execute(query)
+        data2 = cur.fetchall()
+        totalavg = (data1[0]["SUM(TotalWickets)"]+data2[0]["SUM(TotalWickets)"])/(data1[0]["Count(*)"]+data2[0]["Count(*)"])
+        query = "SELECT * FROM Bowler WHERE TotalWickets >= %d" % (totalavg)
+        cur.execute(query)
+        data1 = cur.fetchall()
+        query = "SELECT * FROM AllRounder WHERE TotalWickets >= %d" % (totalavg)
+        cur.execute(query)
+        data2 = cur.fetchall()
+        finallist = []
+        for i in data1:
+            finallist.append(i["PlayerID"])
+        for i in data2:
+            finallist.append(i["PlayerID"])
+        for i in finallist:
+            query = "SELECT * FROM Players WHERE PlayerID = %d" % (i)
+            cur.execute(query)
+            rows = cur.fetchall()
+            headers = rows[0].keys()
+            rows = [x.values() for x in rows]
+            print(tabulate(rows, headers, tablefmt="pretty"))
+    except Exception as e:
+        print("Unable to retrieve :(")
+        print("Error: ", e)
+    tmp = input("Print any key to continue> ")
 
 def reportMatchesPlayed(cur, con):
     try:

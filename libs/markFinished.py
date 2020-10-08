@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from tabulate import tabulate
+
 def markFinished(cur, con):
     try:
         query = "SELECT Year FROM Seasons WHERE Finished=0"
@@ -25,7 +27,12 @@ def markFinished(cur, con):
             cur.execute(query)
             teamList = cur.fetchall()
             sortedList = sorted(teamList, key=lambda i: i["Points"])
-            #TODO here
+            print(len(sortedList))
+            if len(sortedList) != 0:
+                headers = sortedList[0].keys()
+                print(headers)
+                sortedList = [x.values() for x in sortedList]
+                print(tabulate(sortedList, headers, tablefmt="pretty"))
             for i in range(len(sortedList)):
                 print(sortedList[i])
                 query = "INSERT INTO TeamStandings(TeamID, SeasonYear, Standing) VALUES (%d, %d, %d)" % (

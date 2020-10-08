@@ -136,10 +136,12 @@ def addMatch(cur, con):
                 return
             print("Enter player performances of team %s" % (rows[i]["Name"]))
             thisTeam = 0
-            # TODO here
+            headers = teamPlayers[0].keys()
+            teamPlayers = [x.values() for x in teamPlayers]
+            print(tabulate(teamPlayers, headers, tablefmt="pretty"))
             for j in range(len(teamPlayers)):
-                print(teamPlayers[j]["Name"] + "(ID %d)" %
-                      (teamPlayers[j]["PlayerID"]))
+                # print(teamPlayers[j]["Name"] + "(ID %d)" %
+                #       (teamPlayers[j]["PlayerID"]))
                 runs = int(input("Runs: "))
                 wickets = int(input("Wickets: "))
                 playerScorecard.append(
@@ -168,9 +170,11 @@ def addMatch(cur, con):
         cur.execute(query)
         rows1 = cur.fetchall()
         print("Home Stadiums of teams")
-        # TODO here
-        for i in rows1:
-            print(i)
+        headers = rows1[0].keys()
+        rows1 = [x.values() for x in rows1]
+        print(tabulate(rows1, headers, tablefmt="pretty"))
+        # for i in rows1:
+        #     print(i)
         stadiumName = input("Enter stadium name: ")
         stadiumCity = input("Enter stadium city: ")
 
@@ -236,9 +240,11 @@ def addMatch(cur, con):
 
         # input MoM and check correctness of it
 
-        # TODO here
-        for i in playerScorecard:
-            print(i)
+        headers = playerScorecard[0].keys()
+        playerScorecard = [x.values() for x in playerScorecard]
+        print(tabulate(playerScorecard, headers, tablefmt="pretty"))
+        # for i in playerScorecard:
+        #     print(i)
         MoM = int(input("Enter man of the match from the performances: "))
         query = "SELECT * FROM Players WHERE PlayerID = %d" % (MoM)
         cur.execute(query)
@@ -366,9 +372,11 @@ def addTeammanagement(cur, con):
         query = "SELECT * FROM Teams"
         cur.execute(query)
         rows = cur.fetchall()
-        # TODO
-        for i in rows:
-            print(i)
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
+        # for i in rows:
+        #     print(i)
         teamID = int(
             input("Enter the TeamID for which you want to add the management: "))
         name = input("Enter the name of the management: ")

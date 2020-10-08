@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from tabulate import tabulate
+
 def topScorerCurrentSeason(cur, con):
     try:
         query = "SELECT OrangeCap, PurpleCap FROM Seasons where (Finished = 0)"
@@ -123,17 +125,19 @@ def pointsInPrevious(cur, con):
         cur.execute(query)
         data = cur.fetchall()
         print("List of Teams:")
-        #TODO here
-        for i in data:
-            print(i)
+        headers = data[0].keys()
+        data = [x.values() for x in data]
+        print(tabulate(data, headers, tablefmt="pretty"))
+        # for i in data:
+        #     print(i)
         teamID = int(input("Enter the teamID of team of which you want to retrive points: "))
         query = "SELECT * FROM Seasons where (Finished = 1)"
         cur.execute(query)
         data = cur.fetchall()
-        #TODO here
+        headers = data[0].keys()
+        data = [x.values() for x in data]
+        print(tabulate(data, headers, tablefmt="pretty"))
         print("List of Seasons:")
-        for i in data:
-            print(i)
         seasonID = int(input("Enter the seasonID of season for which you want to retrive points: "))
         query = "SELECT * FROM TeamResults where (TeamID = %d AND SeasonYear = %d)" % (teamID, seasonID)
         cur.execute(query)
@@ -190,10 +194,12 @@ def reportAverageCurrent(cur, con):
         query = "SELECT PlayerID, Name, MatchesPlayed, MoM FROM Players"
         cur.execute(query)
         playerList = cur.fetchall()
-        print("Player list: ")
-        #TODO here
-        for i in range(len(playerList)):
-            print(playerList[i])
+        headers = playerList[0].keys()
+        playerList = [x.values() for x in playerList]
+        print(tabulate(playerList, headers, tablefmt="pretty"))
+        # print("Player list: ")
+        # for i in range(len(playerList)):
+        #     print(playerList[i])
         playerID = int(input("Enter ID of player: "))
         idx = -1
         for i in range(len(playerList)):
@@ -212,9 +218,11 @@ def reportAverageCurrent(cur, con):
         query = "SELECT * FROM temptable2 WHERE Season=%d" % (season)
         cur.execute(query)
         curMatchList = cur.fetchall()
-        #TODO here
-        for i in curMatchList:
-            print(i)
+        headers = curMatchList[0].keys()
+        curMatchList = [x.values() for x in curMatchList]
+        print(tabulate(curMatchList, headers, tablefmt="pretty"))
+        # for i in curMatchList:
+        #     print(i)
         curMatches = len(curMatchList)
         if curMatches == 0:
             print("Player hasn't played a match this season")

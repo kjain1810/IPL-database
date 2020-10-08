@@ -27,17 +27,17 @@ def markFinished(cur, con):
             cur.execute(query)
             teamList = cur.fetchall()
             sortedList = sorted(teamList, key=lambda i: i["Points"])
-            print(len(sortedList))
-            if len(sortedList) != 0:
-                headers = sortedList[0].keys()
-                print(headers)
-                sortedList = [x.values() for x in sortedList]
-                print(tabulate(sortedList, headers, tablefmt="pretty"))
+            # print(len(sortedList))
+            # if len(sortedList) != 0:
+            #     headers = sortedList[0].keys()
+            #     print(headers)
+            #     sortedList = [x.values() for x in sortedList]
+            #     print(tabulate(sortedList, headers, tablefmt="pretty"))
             for i in range(len(sortedList)):
-                print(sortedList[i])
+                # print(sortedList[i])
                 query = "INSERT INTO TeamStandings(TeamID, SeasonYear, Standing) VALUES (%d, %d, %d)" % (
                     sortedList[i]["TeamID"], seasonToUpdate, i + 1)
-                print(query)
+                # print(query)
                 cur.execute(query)
             query = "UPDATE Seasons SET Finished=1 WHERE Year=%d" % (
                 seasonToUpdate)

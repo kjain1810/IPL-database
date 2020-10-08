@@ -1,6 +1,10 @@
 # IPL-database
 Major project for Data and Application course during Monsoon'20 semester
 
+# Introduction
+This miniworld is a scaled down replica of the Indian Premier League. We have tried to incorporate as many features which you would be able to access in the real world scenario. You have to ability to track statistics across multiple seasons. You can even find aggregate data from all the seasons put together. 
+
+
 # Loading the database
 1. ```mysql -u username -p IPL < database.sql```
 
@@ -13,8 +17,8 @@ Major project for Data and Application course during Monsoon'20 semester
 - [x] Search Players, Teams, Matches or Seasons by name.
 - [x] Retrieve number of matches played in a stadium.
 - [x] Add matches, players, teams, seasons.
-- [ ] Remove matches, players, teams, seasons.
-- [x] Update matches, players, teams, seasons.(Matches left)
+- [x] Remove players, and team management.
+- [x] Update players, teams, and stadiums.
 
 # Database Requirements [COMPLETED]
 - [x] Players <br>

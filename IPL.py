@@ -5,7 +5,7 @@ import pymysql as sql
 import pymysql.cursors as sqlcursor
 
 from libs.addqueries import addPlayer, addTeam, addSeason, addMatch, addTeammanagement, addStadium
-from libs.removequeries import removePlayer, removeTeam, removeSeason, removeMatch, removeStadium
+from libs.removequeries import removePlayer, removeTeam, removeSeason, removeMatch, removeStadium, removeTeamManagement
 from libs.updatequeries import updatePlayer, updateTeam, updateSeason, updateMatch, updateStadium
 from libs.viewall import viewPlayers, viewMatches, viewTeams, viewStadiums, viewSeasons, viewPlayersAndTeamManagement
 from libs.markFinished import markFinished
@@ -46,13 +46,13 @@ def deleteMenu(cur, con):
     while True:
         tmp = sp.call("clear", shell=True)
         print("1. Delete player")
-        print("2. Delete team")
+        print("2. Delete TeamManagement")
         print("3. Exit")
         choice = int(input("Enter choice> "))
         if choice == 1:
             removePlayer(cur, con)
-        elif choice == 2:
-            removeTeam(cur, con)
+        if choice == 2:
+            removeTeamManagement(cur, con)
         elif choice == 3:
             return
         else:

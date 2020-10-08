@@ -168,7 +168,7 @@ def addMatch(cur, con):
         cur.execute(query)
         rows1 = cur.fetchall()
         print("Home Stadiums of teams")
-         # TODO here
+        # TODO here
         for i in rows1:
             print(i)
         stadiumName = input("Enter stadium name: ")
@@ -235,6 +235,8 @@ def addMatch(cur, con):
             cur.execute(query)
 
         # input MoM and check correctness of it
+
+        # TODO here
         for i in playerScorecard:
             print(i)
         MoM = int(input("Enter man of the match from the performances: "))
@@ -339,6 +341,12 @@ def addStadium(cur, con):
         stadiumName = input("Enter name: ")
         stadiumCity = input("Enter city: ")
         maxCap = int(input("Enter max capacity: "))
+        query = "SELECT * FROM Teams"
+        cur.execute(query)
+        rows = cur.fetchall()
+        headers = rows[0].keys()
+        rows = [x.values() for x in rows]
+        print(tabulate(rows, headers, tablefmt="pretty"))
         homeTeamID = int(input("Enter home team ID: "))
         query = "INSERT INTO Stadium(Stadium_Name, Stadium_City, Max_capacity, Home_Team) VALUES ('%s', '%s', %d, %d)" % (
             stadiumName, stadiumCity, maxCap, homeTeamID)
@@ -358,6 +366,7 @@ def addTeammanagement(cur, con):
         query = "SELECT * FROM Teams"
         cur.execute(query)
         rows = cur.fetchall()
+        # TODO
         for i in rows:
             print(i)
         teamID = int(

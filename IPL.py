@@ -65,8 +65,7 @@ def updateMenu(cur, con):
         print("1. Update player")
         print("2. Update Team")
         print("3. Update Stadium")
-        print("4. Update Season")
-        print("5. Exit")
+        print("4. Exit")
         choice = int(input("Enter choice> "))
         if choice == 1:
             updatePlayer(cur, con)
@@ -75,8 +74,6 @@ def updateMenu(cur, con):
         elif choice == 3:
             updateStadium(cur, con)
         elif choice == 4:
-            updateSeason(cur, con)
-        elif choice == 5:
             return
         else:
             print("Invalid choice")

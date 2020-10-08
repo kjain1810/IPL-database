@@ -62,7 +62,6 @@ The exhaustive list of requirements is below:
 - [x] Retrieve position of a team in a particular season, position of a team across all seasons, and their points in the ongoing season.
 - [x] Calculate average total wickets and/or average total runs of a player in a particular season or overall.
 - [x] Search Players, Teams, Stadiums by name.
-- [x]  
 - [x] Retrieve number of matches played in a stadium.
 - [x] Add matches, players, teams, seasons, stadiums, and Team management.
 - [x] Remove players, and team management.

@@ -83,29 +83,7 @@ def updateMatch(cur, con):
 
 
 def updateSeason(cur, con):
-    try:
-        query = "SELECT * FROM Seasons;"
-        cur.execute(query)
-        rows = cur.fetchall()
-        headers = rows[0].keys()
-        rows = [x.values() for x in rows]
-        print(tabulate(rows, headers, tablefmt="pretty"))
-        # for i in range(len(rows)):
-        #     print(rows[i])
-        oldyear = int(input("Select Year whose data you wish to change: "))
-        SeasonYear = int(input("New Year: "))
-        query = "UPDATE Seasons SET Year = %d WHERE Year = %d" % (
-            SeasonYear, oldyear)
-        cur.execute(query)
-        con.commit()
-        print("Season Updated!")
-    except Exception as e:
-        con.rollback()
-        print("Update failed :(")
-        print("Error: ", e)
-    tmp = input("Enter any key to continue> ")
-    return
-
+    pass
 
 def updateStadium(cur, con):
     try:

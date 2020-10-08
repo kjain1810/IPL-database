@@ -18,25 +18,37 @@ def topScorerCurrentSeason(cur, con):
         # query = "SELECT * FROM Players where (PlayerID = %d)" % (maxrunsID)
         cur.execute(query)
         data = cur.fetchall()
-        query = "SELECT * FROM Players natural join Allrounder where PlayerID = %d" % (maxrunsID)
+        query = "SELECT * FROM Players natural join AllRounder where PlayerID = %d" % (maxrunsID)
         cur.execute(query)
         data1 = cur.fetchall()
         if(len(data) == 0):
-            print(data1[0])
+            headers = data1[0].keys()
+            trows = [x.values() for x in data1]
+            print(tabulate(trows, headers, tablefmt="pretty"))
+            # print(data1[0])
         else:
-            print(data[0])
+            headers = data[0].keys()
+            trows = [x.values() for x in data]
+            print(tabulate(trows, headers, tablefmt="pretty"))
+            # print(data[0])
         print("Maxwickets taker:")
         query = "SELECT * FROM Players natural join Bowler where PlayerID = %d" % (maxwicketsID)
         # query = "SELECT * FROM Players where (PlayerID = %d)" % (maxrunsID)
         cur.execute(query)
         data = cur.fetchall()
-        query = "SELECT * FROM Players natural join Allrounder where PlayerID = %d" % (maxwicketsID)
+        query = "SELECT * FROM Players natural join AllRounder where PlayerID = %d" % (maxwicketsID)
         cur.execute(query)
         data1 = cur.fetchall()
         if(len(data) == 0):
-            print(data1[0])
+            headers = data1[0].keys()
+            trows = [x.values() for x in data1]
+            print(tabulate(trows, headers, tablefmt="pretty"))
+            # print(data1[0])
         else:
-            print(data[0])  
+            headers = data[0].keys()
+            trows = [x.values() for x in data]
+            print(tabulate(trows, headers, tablefmt="pretty"))
+            # print(data[0])  
             
 
     except Exception as e:
@@ -62,14 +74,20 @@ def topScorerOverall(cur, con):
             cur.execute(query)
             data = cur.fetchall()
             print("Maximum Runs")
-            print(data[0])
+            headers = data[0].keys()
+            trows = [x.values() for x in data]
+            print(tabulate(trows, headers, tablefmt="pretty"))
+            # print(data[0])
         else:
             query = "SELECT * FROM Players NATURAL JOIN AllRounder WHERE TotalRuns = %d" % (
                 maxallrounderruns)
             cur.execute(query)
             data = cur.fetchall()
             print("Maximum Runs")
-            print(data[0])
+            headers = data[0].keys()
+            trows = [x.values() for x in data]
+            print(tabulate(trows, headers, tablefmt="pretty"))
+            # print(data[0])
         query = "SELECT MAX(TotalWickets) AS Maxwickets FROM Bowler"
         cur.execute(query)
         res = cur.fetchall()
@@ -84,14 +102,20 @@ def topScorerOverall(cur, con):
             cur.execute(query)
             data = cur.fetchall()
             print("Maximum Wickets")
-            print(data[0])
+            headers = data[0].keys()
+            trows = [x.values() for x in data]
+            print(tabulate(trows, headers, tablefmt="pretty"))
+            # print(data[0])
         else:
             query = "SELECT * FROM Players NATURAL JOIN AllRounder WHERE TotalWickets = %d" % (
                 maxallrounderwickets)
             cur.execute(query)
             data = cur.fetchall()
             print("Maximum Wickets")
-            print(data[0])
+            headers = data[0].keys()
+            trows = [x.values() for x in data]
+            print(tabulate(trows, headers, tablefmt="pretty"))
+            # print(data[0])
     except Exception as e:
         print("Couldn't fetch list :(")
         print("Error: ", e)
@@ -195,8 +219,8 @@ def reportAverageCurrent(cur, con):
         cur.execute(query)
         playerList = cur.fetchall()
         headers = playerList[0].keys()
-        playerList = [x.values() for x in playerList]
-        print(tabulate(playerList, headers, tablefmt="pretty"))
+        tplayerList = [x.values() for x in playerList]
+        print(tabulate(tplayerList, headers, tablefmt="pretty"))
         # print("Player list: ")
         # for i in range(len(playerList)):
         #     print(playerList[i])
@@ -280,9 +304,12 @@ def reportAverageOverall(cur, con):
         query = "SELECT PlayerID, Name, MatchesPlayed, MoM FROM Players"
         cur.execute(query)
         playerList = cur.fetchall()
+        headers = playerList[0].keys()
+        trows = [x.values() for x in playerList]
+        print(tabulate(trows, headers, tablefmt="pretty"))
         print("Player list: ")
-        for i in range(len(playerList)):
-            print(playerList[i])
+        # for i in range(len(playerList)):
+        #     print(playerList[i])
         playerID = int(input("Enter ID of player: "))
         idx = -1
         for i in range(len(playerList)):
@@ -349,15 +376,18 @@ def reportMatchesPlayed(cur, con):
         query = "SELECT * FROM Stadium"
         cur.execute(query)
         data = cur.fetchall()
-        print("List of stadiums")
-        for i in data:
-            print(i)
+        headers = data[0].keys()
+        rows = [x.values() for x in data]
+        print(tabulate(rows, headers, tablefmt="pretty"))
+        # print("List of stadiums")
+        # for i in data:
+        #     print(i)
         stadiumname = input("Enter the name of the stadium for which you want to count the number of matches: ")
         stadiumcity = input("Enter the city of the stadium for which you want to count the number of matches: ")
         query = "SELECT * FROM Plays where (Stadium_name = '%s' AND Stadium_city = '%s')" % (stadiumname, stadiumcity)
         cur.execute(query)
         data = cur.fetchall()
-        print("Number of matches played in " + stadiumname + ',' + stadiumcity + ' are ' + str(len(data)))
+        print("Number of matches played in " + stadiumname + ', ' + stadiumcity + ' are ' + str(len(data)))
         tmp = input("Print any key to continue> ")
     except Exception as e:
         print("Unable to retrieve :(")

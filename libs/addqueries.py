@@ -137,13 +137,14 @@ def addMatch(cur, con):
             print("Enter player performances of team %s" % (rows[i]["Name"]))
             thisTeam = 0
             headers = teamPlayers[0].keys()
-            teamPlayers = [x.values() for x in teamPlayers]
-            print(tabulate(teamPlayers, headers, tablefmt="pretty"))
+            tempteamPlayers = [x.values() for x in teamPlayers]
+            print(tabulate(tempteamPlayers, headers, tablefmt="pretty"))
             for j in range(len(teamPlayers)):
                 # print(teamPlayers[j]["Name"] + "(ID %d)" %
                 #       (teamPlayers[j]["PlayerID"]))
-                runs = int(input("Runs: "))
-                wickets = int(input("Wickets: "))
+                person = str(j + 1)
+                runs = int(input("Runs of player " + person + ":"))
+                wickets = int(input("Wickets of player " + person + ":"))
                 playerScorecard.append(
                     {"PlayerID": teamPlayers[j]["PlayerID"], "Runs": runs, "Wickets": wickets})
                 thisTeam += runs
@@ -156,7 +157,7 @@ def addMatch(cur, con):
         elif totalScores[teamID1] < totalScores[teamID2]:
             winner = teamID2
         if winner == -1:
-            print("Match can't tie!")
+            print("Match can't be a tie!")
             tmp = input("Enter any key to continue> ")
             return
 
@@ -241,11 +242,11 @@ def addMatch(cur, con):
         # input MoM and check correctness of it
 
         headers = playerScorecard[0].keys()
-        playerScorecard = [x.values() for x in playerScorecard]
-        print(tabulate(playerScorecard, headers, tablefmt="pretty"))
+        tempplayerScorecard = [x.values() for x in playerScorecard]
+        print(tabulate(tempplayerScorecard, headers, tablefmt="pretty"))
         # for i in playerScorecard:
         #     print(i)
-        MoM = int(input("Enter man of the match from the performances: "))
+        MoM = int(input("Enter PlayerID of the man of the match from the performances: "))
         query = "SELECT * FROM Players WHERE PlayerID = %d" % (MoM)
         cur.execute(query)
         MoMList = cur.fetchall()
@@ -288,7 +289,7 @@ def addMatch(cur, con):
         # update TeamStandings
         query = "SELECT * FROM TeamResults WHERE TeamID=%d AND SeasonYear=%d" % (
             teamID1, season)
-        cur.execute()
+        cur.execute(query)
         resList = cur.fetchall()
         if len(resList) == 0:
             query = "INSERT INTO TeamResults(TeamID, SeasonYear, Points) VALUES (%d, %d, 0)" % (
@@ -296,7 +297,7 @@ def addMatch(cur, con):
             cur.execute(query)
         query = "SELECT * FROM TeamResults WHERE TeamID=%d AND SeasonYear=%d" % (
             teamID2, season)
-        cur.execute()
+        cur.execute(query)
         resList = cur.fetchall()
         if len(resList) == 0:
             query = "INSERT INTO TeamResults(TeamID, SeasonYear, Points) VALUES (%d, %d, 0)" % (
@@ -311,6 +312,7 @@ def addMatch(cur, con):
             newpoints, winner, season)
         cur.execute(query)
         con.commit()
+        print("Match Added")
     except Exception as e:
         con.rollback()
         print("Addition failed :(")

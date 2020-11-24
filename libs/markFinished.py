@@ -36,7 +36,7 @@ def markFinished(cur, con):
             for i in range(len(sortedList)):
                 # print(sortedList[i])
                 query = "INSERT INTO TeamStandings(TeamID, SeasonYear, Standing) VALUES (%d, %d, %d)" % (
-                    sortedList[i]["TeamID"], seasonToUpdate, i + 1)
+                    sortedList[i]["TeamID"], seasonToUpdate, len(sortedList) - i)
                 # print(query)
                 cur.execute(query)
             query = "UPDATE Seasons SET Finished=1 WHERE Year=%d" % (

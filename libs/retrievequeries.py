@@ -161,8 +161,8 @@ def pointsInPrevious(cur, con):
         headers = data[0].keys()
         data = [x.values() for x in data]
         print(tabulate(data, headers, tablefmt="pretty"))
-        print("List of Seasons:")
-        seasonID = int(input("Enter the seasonID of season for which you want to retrive points: "))
+        # print("List of Seasons:")
+        seasonID = int(input("Enter the Year of season for which you want to retrive points: "))
         query = "SELECT * FROM TeamResults where (TeamID = %d AND SeasonYear = %d)" % (teamID, seasonID)
         cur.execute(query)
         data = cur.fetchall()

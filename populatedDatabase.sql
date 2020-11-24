@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `Matches`;
 CREATE TABLE `Matches` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `WinnerID` int(11) NOT NULL,
-  `Mom` int(11) NOT NULL,
+  `Mom` int(11) DEFAULT NULL,
   `Feild_Umpire1` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Feild_Umpire2` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Stadium_name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
